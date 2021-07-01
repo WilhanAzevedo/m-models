@@ -61,7 +61,7 @@
 
 .login .form .inputs input {
   font-weight: 400;
-  color: black;
+  color: #1a1919;
   border-radius: 0.4rem;
   outline: none;
   background: white;
