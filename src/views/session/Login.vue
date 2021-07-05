@@ -7,32 +7,48 @@
 
     <div class="form">
       <div class="inputs">
-        <div class="input-group">
-          <img src="../../assets/icon-email.svg" alt="Email" />
-          <input type="e-mail" id="e-mail" name="e-mail" placeholder="Email" />
-        </div>
-        <div class="input-group">
-          <img src="../../assets/icon-lock.svg" alt="Senha" />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Senha"
-          />
-        </div>
+        <Input
+          :img="'icon-email.svg'"
+          :type="'e-mail'"
+          :placeholder="'E-mail'"
+        />
+        <Input
+          :img="'icon-lock.svg'"
+          :type="'password'"
+          :placeholder="'Senha'"
+        />
       </div>
 
       <div>
-        <a href="#"> Esqueceu a senha?</a>
+        <router-link :to="{ name: 'ForgotPassword' }">
+          Esqueceu a senha?</router-link
+        >
       </div>
 
       <div class="buttons">
-        <button class="primary">Entrar</button> <br />
-        <button class="secondary">Criar conta</button>
+        <Button :textButton="'Entrar'" :backgroundButton="'primary'" />
+        <Button
+          :textButton="'Criar conta'"
+          :backgroundButton="'secondary'"
+          :router="router"
+        />
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import Button from "../../components/Button.vue";
+import Input from "../../components/Input.vue";
+export default {
+  components: { Button, Input },
+  methods: {
+    router() {
+      this.$router.push({ name: "CreateAccount" });
+    },
+  },
+};
+</script>
 
 <style>
 .login {
@@ -59,50 +75,12 @@
   padding: 20px 0px;
 }
 
-.login .form .inputs input {
-  font-weight: 400;
-  color: #1a1919;
-  border-radius: 0.4rem;
-  outline: none;
-  background: white;
-  font-size: 1rem;
-  margin-left: 5px;
-}
-
-.login .form .inputs .input-group {
-  display: flex;
-  align-items: center;
-  background: white;
-  padding: 12px 10px;
-  margin: 10px 0;
-  border-radius: 0.4rem;
-  width: 350px;
-}
-
-.login .form a {
+a {
   font-size: 0.875rem;
   text-decoration: none;
   color: #5a5757;
   display: flex;
   justify-content: flex-end;
   padding: 10px 0px;
-}
-
-.login .buttons button {
-  padding: 1rem 4rem;
-  font-size: 1rem;
-  border-radius: 0.2rem;
-  margin: 5px 0px;
-  width: 350px;
-  cursor: pointer;
-}
-
-.buttons .primary {
-  background: black;
-  color: white;
-}
-.buttons .secondary {
-  background: transparent;
-  color: black;
 }
 </style>
