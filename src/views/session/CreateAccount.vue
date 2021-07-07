@@ -19,7 +19,7 @@
         </span>
       </div>
     </div>
-    <div class="section">
+    <div class="section" @click="$router.push({ name: 'RegisterContractor' })">
       <div class="image-card">
         <img src="../../assets/img-contractor.jpg" alt="Contratante" />
       </div>

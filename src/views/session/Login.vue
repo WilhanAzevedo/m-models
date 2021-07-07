@@ -26,11 +26,15 @@
       </div>
 
       <div class="buttons">
-        <Button :textButton="'Entrar'" :backgroundButton="'primary'" />
+        <Button
+          :textButton="'Entrar'"
+          :backgroundButton="'primary'"
+          :router="login"
+        />
         <Button
           :textButton="'Criar conta'"
           :backgroundButton="'secondary'"
-          :router="router"
+          :router="createAccount"
         />
       </div>
     </div>
@@ -43,8 +47,11 @@ import Input from "../../components/Input.vue";
 export default {
   components: { Button, Input },
   methods: {
-    router() {
+    createAccount() {
       this.$router.push({ name: "CreateAccount" });
+    },
+    login() {
+      this.$router.push({ name: "profile" });
     },
   },
 };
