@@ -39,9 +39,22 @@ const routes = [
     path: "/localizacao",
     name: "Localization",
     component: () => import("../views/session/Localization.vue")
+  },
+  {
+    path: "/criar-conta-contratante",
+    name: "RegisterContractor",
+    component: () => import("../views/session/RegisterContractor.vue")
+  },
+  {
+    path: "/dados-empresariais",
+    name: "CompanyInformation",
+    component: () => import("../views/session/CompanyInformation.vue")
+  },
+  {
+    path: "/perfil",
+    name: "profile",
+    component: () => import("../views//Profile.vue")
   }
-
-
 ];
 
 const router = new VueRouter({
