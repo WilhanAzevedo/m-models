@@ -31,7 +31,7 @@ export default {};
   border-bottom: 2px solid #f4f4f4;
   font-family: "Montserrat", sans-serif;
 }
-.header {
+.menu .header {
   padding: 0.5rem 0;
   display: flex;
   justify-content: center;
@@ -59,14 +59,14 @@ export default {};
   list-style: none;
 }
 
-.header .logo {
+.menu .header .logo {
   width: 75px;
 }
-.header .logo img {
+.menu .header .logo img {
   width: 80%;
 }
 
-.header li {
+.menu .header li {
   padding: 0px 20px;
   list-style: none;
   font-size: 0.8rem;
