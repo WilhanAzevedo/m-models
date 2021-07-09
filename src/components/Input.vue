@@ -1,16 +1,25 @@
 <template>
   <div class="input-group">
-    <img :src="require('../assets/' + img)" :alt="placeholder" />
-    <input :type="type" :placeholder="placeholder" />
+    <img v-if="img" :src="require('../assets/' + img)" :alt="placeholder" />
+    <input :type="type" :placeholder="placeholder" :value="data" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    img: String,
-    placeholder: String,
-    type: String,
+    img: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    placeholder: {
+      type: String,
+    },
+    type: {
+      type: String,
+    },
+    data: String,
   },
 };
 </script>
@@ -21,7 +30,7 @@ export default {
   align-items: center;
   background: white;
   padding: 12px 10px;
-  margin: 10px 0;
+  margin: 5px 0;
   border-radius: 0.4rem;
   width: 350px;
 }
