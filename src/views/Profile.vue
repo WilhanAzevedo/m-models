@@ -17,7 +17,7 @@
           </div>
           <div class="about">
             <span class="about-title">Sobre mim:</span>
-            <div>
+            <div class="about-description">
               <span>
                 Junte-se a nós para um lançamento especial do Nubank, em nosso
                 canal no Youtube
@@ -25,10 +25,10 @@
             </div>
           </div>
         </div>
-        <div class="edit">
+        <router-link :to="{ name: 'EditProfile' }" class="edit">
           <span> Editar </span>
           <img src="../assets/edit.svg" alt="Editar" />
-        </div>
+        </router-link>
       </div>
     </div>
     <!-- CARACTERISTICAS ===================== -->
@@ -58,6 +58,15 @@
       </div>
     </div>
     <!-- IMAGENS ======================== -->
+    <div class="section">
+      <div class="my-pictures">
+        <span>Minhas fotos</span>
+      </div>
+      <div class="add-pictures">
+        <span>Adicionar foto</span>
+        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
+      </div>
+    </div>
     <div class="images-profile">
       <div class="picture-profile">
         <img
@@ -118,7 +127,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* background: red; */
 }
 .photo-circle {
   width: 152px;
@@ -138,7 +146,7 @@ export default {
 .description .info-user {
   color: #404040;
 }
-.description .edit {
+.description a {
   display: flex;
   color: #908f8f;
   font-size: 0.9rem;
@@ -150,7 +158,6 @@ export default {
   align-items: center;
   justify-content: start;
   color: #908f8f;
-  /* background: red; */
 }
 .bottom-info .location {
   display: flex;
@@ -162,7 +169,7 @@ export default {
   width: 18px;
 }
 .about {
-  width: 60%;
+  width: 80%;
   color: #908f8f;
   margin-top: 10px;
 }
@@ -181,7 +188,7 @@ export default {
 .features-list {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .features .feature-item {
   background: #e5e5e5;
@@ -196,6 +203,29 @@ export default {
 }
 
 /* IMAGENS =================================== */
+.profile .section {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #404040;
+  margin-bottom: 10px;
+}
+.profile .section .add-pictures {
+  display: flex;
+  align-items: center;
+  color: #908f8f;
+  cursor: pointer;
+  border: 1px solid #908f8f;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-right: 6px;
+}
+.profile .section .add-pictures span {
+  margin-right: 8px;
+}
 .images-profile {
   width: 75%;
   margin: 0 auto;
@@ -207,9 +237,87 @@ export default {
   width: 33.33%;
 }
 .images-profile .picture-profile img {
-  width: 95%;
+  width: 98%;
   height: 300px;
   object-fit: cover;
-  margin-top: 10px;
+}
+/* RESPONSIVE ================================= */
+@media (max-width: 468px) {
+  .personal-information {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .photo-circle {
+    width: 200px;
+    margin-right: 10px;
+  }
+
+  .photo-circle img {
+    width: 100%;
+    clip-path: circle(39%);
+  }
+  .about .about-description {
+    width: 130%;
+    font-size: 0.7rem;
+  }
+  .bottom-info {
+    font-size: 0.7rem;
+  }
+  .features {
+    width: 100%;
+    padding: 0 15px;
+    font-size: 0.875rem;
+  }
+  .features .feature-item {
+    width: 30%;
+    font-size: 0.86rem;
+  }
+  .profile .section {
+    width: 88%;
+    font-size: 0.8rem;
+  }
+  .images-profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+  }
+  .images-profile .picture-profile {
+    width: 100% !important;
+  }
+  .images-profile .picture-profile img {
+    width: 100% !important;
+    height: 400px;
+  }
+}
+
+@media (max-width: 936px) {
+  .personal-information {
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .description {
+    font-size: 0.8rem;
+    margin-top: 20px;
+  }
+  .about {
+    width: 100%;
+    color: #908f8f;
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+  .features .feature-item {
+    width: 30%;
+  }
+  .images-profile .picture-profile {
+    width: 50%;
+  }
+  .images-profile .picture-profile img {
+    width: 95%;
+    height: 400px;
+  }
 }
 </style>
