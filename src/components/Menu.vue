@@ -16,6 +16,9 @@
             <li>Sair</li>
           </ul>
         </div>
+        <div id="menu-responsive">
+          <img src="../assets/menu.svg" alt="" />
+        </div>
       </div>
     </div>
   </div>
@@ -29,7 +32,8 @@ export default {};
 .menu {
   background: white;
   border-bottom: 2px solid #f4f4f4;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
 }
 .menu .header {
   padding: 0.5rem 0;
@@ -70,5 +74,29 @@ export default {};
   padding: 0px 20px;
   list-style: none;
   font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* RESPONSIVE ============================= */
+@media (max-width: 1068px) {
+  .main-nav {
+    display: none;
+    visibility: hidden;
+  }
+}
+@media (min-width: 1068px) {
+  #menu-responsive {
+    display: none;
+    visibility: hidden;
+  }
+}
+@media (max-width: 400px) {
+  .menu .header {
+    width: 100%;
+    padding: 0 15px;
+  }
+  #menu-responsive img {
+    width: 130%;
+  }
 }
 </style>
