@@ -32,7 +32,7 @@ export default {
   padding: 12px 10px;
   margin: 5px 0;
   border-radius: 0.4rem;
-  width: 350px;
+  /* width: 350px; */
 }
 input {
   font-weight: 400;
