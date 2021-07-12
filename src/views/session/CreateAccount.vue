@@ -77,7 +77,7 @@ export default {};
   padding: 20px 10px;
 }
 
-.section {
+.createaccount .section {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +86,7 @@ export default {};
   cursor: pointer;
 }
 
-.section img {
+.createaccount .section img {
   width: 130px;
   height: 130px;
   object-fit: cover;
