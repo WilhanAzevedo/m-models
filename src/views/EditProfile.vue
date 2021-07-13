@@ -129,17 +129,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  /* height: 200px; */
 }
-.edit-profile .change-photo {
-  width: 200px;
-  margin-right: 50px;
-}
+
 .edit-profile .change-photo .photo img {
   width: 137px;
   height: 137px;
   object-fit: cover;
   border-radius: 100%;
+  margin-right: 50px;
 }
 .edit-profile .button-edit {
   display: flex;
@@ -199,9 +197,59 @@ export default {
   align-items: flex-end;
   justify-content: flex-end;
   margin-top: 10px;
+  /* width: 15%; */
 }
 .edit-profile .button-save div {
-  width: 15%;
   margin-top: 10px;
+  /* width: 10%; */
+}
+/* RESPONSIVE ============================== */
+
+@media (max-width: 468px) {
+  .edit-profile .edit-infos {
+    width: 90%;
+  }
+
+  .edit-profile .info-personal {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .edit-profile .change-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: crimson; */
+    flex-direction: column;
+    width: 100%;
+  }
+  .edit-profile .change-photo .photo img {
+    margin-right: 0;
+  }
+
+  .edit-profile .form .input {
+    width: 100%;
+    margin: 10px 0;
+    margin-right: 0px;
+  }
+  .edit-profile .about-input {
+    width: 100%;
+  }
+  .edit-profile .form-features .input {
+    width: 100%;
+    margin: 10px 0;
+    margin-right: 0;
+  }
+  .edit-profile .form-features .input:nth-child(n + 1):nth-child(-n + 4) {
+    width: 100%;
+  }
+  .edit-profile .form-features .input:nth-child(n + 5):nth-child(-n + 10) {
+    width: 31%;
+  }
+  .edit-profile .button-save {
+    width: 100%;
+    display: block;
+  }
 }
 </style>
