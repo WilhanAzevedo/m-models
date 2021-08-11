@@ -7,10 +7,10 @@
         </div>
         <div>
           <ul class="main-nav">
-            <li>Perfil</li>
-            <li>Portfólio</li>
-            <li>Job</li>
-            <li>Jobs contratados</li>
+            <li><router-link :to="{ name: 'profile' }">Perfil</router-link></li>
+            <!-- <li>Portfólio</li> -->
+            <li><router-link :to="{ name: 'jobs' }">Jobs</router-link></li>
+            <li>Jobs candidatados</li>
             <li>Suporte</li>
             <li>M Models no Telegram</li>
             <li>Sair</li>
