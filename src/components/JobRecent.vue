@@ -34,7 +34,6 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* background: red; */
 }
 .job-recent .job-title {
   text-align: center;
