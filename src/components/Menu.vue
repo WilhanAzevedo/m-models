@@ -8,12 +8,19 @@
         <div>
           <ul class="main-nav">
             <li><router-link :to="{ name: 'profile' }">Perfil</router-link></li>
-            <!-- <li>Portfólio</li> -->
             <li><router-link :to="{ name: 'jobs' }">Jobs</router-link></li>
-            <li>Jobs candidatados</li>
-            <li>Suporte</li>
-            <li>M Models no Telegram</li>
-            <li>Sair</li>
+            <li>
+              <router-link :to="{ name: 'MyJobs' }"> Meus jobs </router-link>
+            </li>
+            <li>
+              <a href="https://wa.me/556193707131" target="_blank">Suporte</a>
+            </li>
+            <li>
+              <a href="https://t.me/joinchat/osN4TrYbmVFlMzkx" target="_blank"
+                >M Models no Telegram</a
+              >
+            </li>
+            <li><router-link :to="{ name: 'login' }">Sair</router-link></li>
           </ul>
         </div>
         <div id="menu-responsive">
@@ -68,6 +75,7 @@ export default {};
 }
 .menu .header .logo img {
   width: 80%;
+  cursor: pointer;
 }
 
 .menu .header li {
