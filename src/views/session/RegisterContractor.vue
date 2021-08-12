@@ -54,7 +54,7 @@ export default {
   text-align: center;
   height: 100vh;
   /* background: red; */
-  width: 300px;
+  width: 350px;
   margin: 0 auto;
   padding-top: 50px;
 }

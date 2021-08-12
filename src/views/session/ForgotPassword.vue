@@ -4,7 +4,7 @@
       <img src="../../assets/logo.jpeg" alt="Logo" />
       <h2>Digite seu e-mail para recuperação</h2>
     </div>
-    <div>
+    <div class="form">
       <Input :img="'icon-email.svg'" :type="'email'" :placeholder="'E-mail'" />
       <Button
         :textButton="'Avançar'"
@@ -45,7 +45,9 @@ export default {
   margin: 0 auto;
   padding-top: 170px;
 }
-
+.password .form {
+  width: 100%;
+}
 .password .header-password img {
   width: 30%;
   margin-bottom: 2rem;

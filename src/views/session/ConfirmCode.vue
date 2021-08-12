@@ -9,7 +9,7 @@
         campo abaixo
       </h2>
     </div>
-    <div>
+    <div class="form">
       <Input
         :type="'text'"
         :placeholder="'Código'"
@@ -50,7 +50,9 @@ export default {
   margin: 0 auto;
   padding-top: 170px;
 }
-
+.code .form {
+  width: 100%;
+}
 .code .header-code .logo img {
   width: 30%;
   margin-bottom: 2rem;

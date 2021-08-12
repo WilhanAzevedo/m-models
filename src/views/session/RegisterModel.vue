@@ -6,7 +6,7 @@
       </div>
       <h2>Você escolheu modelo, vamos começar com alguns cadastros simples</h2>
     </div>
-    <div>
+    <div class="form">
       <Input :type="'name'" :placeholder="'Nome completo'" :img="'user.svg'" />
       <Input
         :type="'name'"
@@ -50,11 +50,13 @@ export default {
   text-align: center;
   height: 100%;
   /* background: red; */
-  width: 300px;
+  width: 350px;
   margin: 0 auto;
   padding-top: 50px;
 }
-
+.register-model .form {
+  width: 100%;
+}
 .register-model .header .logo img {
   width: 30%;
   margin-bottom: 2rem;

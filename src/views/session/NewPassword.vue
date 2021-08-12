@@ -6,7 +6,7 @@
       </div>
       <h2>Agora redefina sua nova senha</h2>
     </div>
-    <div>
+    <div class="form">
       <Input
         :type="'text'"
         :placeholder="'Nova senha'"
@@ -52,7 +52,9 @@ export default {
   margin: 0 auto;
   padding-top: 170px;
 }
-
+.newpassword .form {
+  width: 100%;
+}
 .newpassword .header .logo img {
   width: 30%;
   margin-bottom: 2rem;

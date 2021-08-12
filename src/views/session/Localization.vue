@@ -4,7 +4,7 @@
       <img src="../../assets/logo.jpeg" alt="Logo" />
       <p>E por ultimo precisamos que forneça sua localização</p>
     </div>
-    <div>
+    <div class="form">
       <Input :type="'text'" :placeholder="'Cidade'" :img="'localization.svg'" />
       <Input :type="'text'" :placeholder="'Estado'" :img="'localization.svg'" />
       <Button
@@ -44,7 +44,9 @@ export default {
   width: 350px;
   margin: 0 auto;
 }
-
+.localization .form {
+  width: 100%;
+}
 .localization .header img {
   width: 45%;
   border-radius: 0.8rem;
