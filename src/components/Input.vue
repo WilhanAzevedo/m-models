@@ -1,7 +1,12 @@
 <template>
   <div class="input-group">
     <img v-if="img" :src="require('../assets/' + img)" :alt="placeholder" />
-    <input :type="type" :placeholder="placeholder" :value="data" />
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      :value="data"
+      @input="$emit('input', $event.target.value)"
+    />
   </div>
 </template>
 

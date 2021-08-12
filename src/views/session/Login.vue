@@ -11,11 +11,13 @@
           :img="'icon-email.svg'"
           :type="'e-mail'"
           :placeholder="'E-mail'"
+          @input="onEmail"
         />
         <Input
           :img="'icon-lock.svg'"
           :type="'password'"
           :placeholder="'Senha'"
+          @input="onPass"
         />
       </div>
 
@@ -44,14 +46,36 @@
 <script>
 import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
+import auth from "../../services/request/auth";
 export default {
   components: { Button, Input },
+  data() {
+    return {
+      user: {
+        email: null,
+        senha: null,
+      },
+    };
+  },
   methods: {
     createAccount() {
       this.$router.push({ name: "CreateAccount" });
     },
     login() {
-      this.$router.push({ name: "profile" });
+      auth
+        .login(this.user)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$router.push({ name: "jobs" });
+          }
+        })
+        .catch((error) => console.log("erro da requisição", error));
+    },
+    onEmail(value) {
+      this.user.email = value;
+    },
+    onPass(value) {
+      this.user.senha = value;
     },
   },
 };
