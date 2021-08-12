@@ -1,5 +1,5 @@
 <template>
-  <div class="job-card">
+  <div class="job-card" @click="clickDetails">
     <div class="card-image">
       <img v-if="img" :src="img" :alt="placeholder" />
     </div>
@@ -27,6 +27,7 @@ export default {
     date: String,
     placeholder: String,
     description: String,
+    clickDetails: Function,
   },
 };
 </script>
