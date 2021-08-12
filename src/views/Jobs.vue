@@ -56,12 +56,14 @@
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de revista"
           description="Precisamos de 2 rapazes e 2 moças de 18 a 25 anos..."
+          :clickDetails="clickDetails"
         />
         <Job
           img="https://www.quimicolla.com.br/wp-content/uploads/2020/12/Producao-de-calcados-de-ponta-a-ponta-em-Sao-Joao-Batista-pichi.jpg"
           title="Loja de calçados"
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de calçados"
+          :clickDetails="clickDetails"
           description="Precisamos de uma mulher que tenha entre 30 e 40 anos para ser modelo em uma campanha de calçados."
         />
         <Job
@@ -69,6 +71,7 @@
           title="Atendente em evento"
           date="16/07/2021 - 00:00"
           placeholder="Um homem preparando drinks"
+          :clickDetails="clickDetails"
           description="Precisamos urgente de homens e mulheres de 18 a 30 anos de idade para trabalhar como atendente"
         />
         <Job
@@ -77,12 +80,14 @@
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de revista"
           description="Precisamos de 2 rapazes e 2 moças de 18 a 25 anos..."
+          :clickDetails="clickDetails"
         />
         <Job
           img="https://www.quimicolla.com.br/wp-content/uploads/2020/12/Producao-de-calcados-de-ponta-a-ponta-em-Sao-Joao-Batista-pichi.jpg"
           title="Loja de calçados"
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de calçados"
+          :clickDetails="clickDetails"
           description="Precisamos de uma mulher que tenha entre 30 e 40 anos para ser modelo em uma campanha de calçados."
         />
         <Job
@@ -90,6 +95,7 @@
           title="Atendente em evento"
           date="16/07/2021 - 00:00"
           placeholder="Um homem preparando drinks"
+          :clickDetails="clickDetails"
           description="Precisamos urgente de homens e mulheres de 18 a 30 anos de idade para trabalhar como atendente"
         />
       </div>
@@ -103,6 +109,11 @@ import JobRecent from "../components/JobRecent.vue";
 import Job from "../components/Job.vue";
 export default {
   components: { Menu, JobRecent, Job },
+  methods: {
+    clickDetails() {
+      this.$router.push({ name: "JobDetails" });
+    },
+  },
 };
 </script>
 
