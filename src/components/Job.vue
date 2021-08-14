@@ -41,7 +41,7 @@ export default {
   cursor: pointer;
 }
 .job-card .card-image {
-  max-width: 270px;
+  width: 270px;
   background: white;
 }
 .job-card .card-image img {
@@ -70,5 +70,23 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+/* RESPONSIVE JOBS ================================ */
+
+@media (max-width: 400px) {
+  .job-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  .job-card .card-image {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .job-card .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
 }
 </style>
