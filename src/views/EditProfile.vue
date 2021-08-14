@@ -15,10 +15,14 @@
             <img src="../assets/add-pictures.svg" alt="" />
           </div>
         </div>
-        <div class="form">
+        <div class="form" v-if="user">
           <div class="input">
             <span>Nome completo</span>
-            <Input :type="'text'" :placeholder="'Jhonatan Borges'" />
+            <Input
+              :type="'text'"
+              :placeholder="'Nome completo'"
+              :value="user.nome + ' ' + user.sobre_nome"
+            />
           </div>
           <div class="input">
             <span>Data de nascimento</span>
@@ -26,15 +30,24 @@
               :type="'date'"
               :placeholder="'2017-01-17'"
               :data="'2017-01-17'"
+              :value="formatDate(user.data_nascimento)"
             />
           </div>
           <div class="input">
             <span>Idade</span>
-            <Input :type="'number'" :placeholder="'23'" />
+            <Input
+              :type="'number'"
+              :placeholder="'Idade'"
+              :value="user.idade"
+            />
           </div>
           <div class="input">
             <span>Gênero</span>
-            <Input :type="'text'" :placeholder="'Feminino'" />
+            <Input
+              :type="'text'"
+              :placeholder="'Gênero'"
+              :value="user.genero"
+            />
           </div>
         </div>
       </div>
@@ -45,51 +58,91 @@
       <div class="info-title">
         <span>Caracteristicas</span>
       </div>
-      <div class="form-features">
+      <div class="form-features" v-if="feature">
         <div class="input">
           <span>Cor do cabelo</span>
-          <Input :type="'text'" :placeholder="'Preto'" />
+          <Input
+            :type="'text'"
+            :value="feature.cor_cabelo.nome"
+            :placeholder="'Cor do cabelo'"
+          />
         </div>
         <div class="input">
           <span>Cor dos olhos</span>
-          <Input :type="'text'" :placeholder="'Preto'" />
+          <Input
+            :type="'text'"
+            :value="feature.cor_olho.nome"
+            :placeholder="'Preto'"
+          />
         </div>
         <div class="input">
           <span>Cor da pele</span>
-          <Input :type="'text'" :placeholder="'Negra'" />
+          <Input
+            :type="'text'"
+            :value="feature.cor_pele.nome"
+            :placeholder="'Negra'"
+          />
         </div>
         <div class="input">
           <span>Manequim</span>
-          <Input :type="'text'" :placeholder="'M'" />
+          <Input
+            :type="'text'"
+            :value="feature.manequim.nome"
+            :placeholder="'M'"
+          />
         </div>
         <div class="input">
           <span>Altura</span>
-          <Input :type="'number'" :placeholder="'1.80'" />
+          <Input
+            :type="'number'"
+            :value="feature.altura"
+            :placeholder="'1.80'"
+          />
         </div>
         <div class="input">
           <span>Peso</span>
-          <Input :type="'number'" :placeholder="'63.0'" />
+          <Input :type="'number'" :value="feature.peso" :placeholder="'63.0'" />
         </div>
         <div class="input">
           <span>Quadril</span>
-          <Input :type="'number'" :placeholder="'50'" />
+          <Input
+            :type="'number'"
+            :value="feature.quadril"
+            :placeholder="'50'"
+          />
         </div>
         <div class="input">
           <span>Busto torax</span>
-          <Input :type="'number'" :placeholder="'63'" />
+          <Input
+            :type="'number'"
+            :value="feature.busto_torax"
+            :placeholder="'63'"
+          />
         </div>
         <div class="input">
           <span>Calçado</span>
-          <Input :type="'number'" :placeholder="'42'" />
+          <Input
+            :type="'number'"
+            :value="feature.calcado"
+            :placeholder="'42'"
+          />
         </div>
         <div class="input">
           <span>Cintura</span>
-          <Input :type="'number'" :placeholder="'50'" />
+          <Input
+            :type="'number'"
+            :value="feature.cintura"
+            :placeholder="'50'"
+          />
         </div>
       </div>
       <div class="button-save">
         <div>
-          <Button :textButton="'Salvar'" :backgroundButton="'primary'" />
+          <Button
+            :textButton="'Salvar'"
+            :backgroundButton="'primary'"
+            :router="save"
+          />
         </div>
       </div>
     </div>
@@ -100,11 +153,42 @@
 import Menu from "../components/Menu.vue";
 import Input from "../components/Input.vue";
 import Button from "../components/Button.vue";
+import Model from "../services/request/model";
 export default {
   components: {
     Menu,
     Input,
     Button,
+  },
+  data() {
+    return {
+      feature: null,
+      user: null,
+    };
+  },
+  mounted() {
+    this.getUser();
+  },
+  methods: {
+    formatDate(date) {
+      const newDate = new Date(date);
+      const splittedDate = newDate.toISOString().slice(0, 10);
+      return splittedDate;
+    },
+    async getUser() {
+      const user = await JSON.parse(localStorage.getItem("usuario"));
+      if (!user) {
+        this.$router.replace({ name: "login" });
+      }
+      if (user) {
+        const response = await Model.getFeaturesModel(user.modelo.id);
+        if (response.status === 200) {
+          this.feature = response.data.caracteristicas[0];
+          this.user = response.data.modelo[0];
+        }
+      }
+    },
+    save() {},
   },
 };
 </script>
