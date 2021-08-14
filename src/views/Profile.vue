@@ -1,18 +1,18 @@
 <template>
   <div class="profile">
     <Menu />
-    <div class="personal-information">
-      <div class="photo-circle">
-        <img src="../assets/img-contractor.jpg" alt="Perfil" />
-      </div>
+    <div class="personal-information" v-if="user">
       <div class="description">
+        <div class="photo-circle">
+          <img :src="user.foto_perfil" alt="Perfil" />
+        </div>
         <div class="info-user">
-          <span>Jhonatan Borges</span>
+          <span v-text="user.nome + ' ' + user.sobre_nome"></span>
           <div class="bottom-info">
-            <div class="age">23y</div>
+            <div class="age" v-text="user.idade + 'y'"></div>
             <div class="location">
               <img src="../assets/localization.svg" alt="Localização" />
-              <span>Sinop, MT</span>
+              <span v-text="user.cidade + ', ' + user.estado"></span>
             </div>
           </div>
           <div class="about">
@@ -25,84 +25,98 @@
             </div>
           </div>
         </div>
-        <router-link :to="{ name: 'EditProfile' }" class="edit">
-          <span> Editar </span>
-          <img src="../assets/edit.svg" alt="Editar" />
-        </router-link>
       </div>
+      <router-link :to="{ name: 'EditProfile' }" class="edit">
+        <span> Editar </span>
+        <img src="../assets/edit.svg" alt="Editar" />
+      </router-link>
     </div>
     <!-- CARACTERISTICAS ===================== -->
-    <div class="features">
+    <div class="features" v-if="features">
       <div class="features-title">
         <span>Caracteristicas</span>
       </div>
       <div class="features-list">
         <div class="feature-item">
-          <span>Olhos pretos</span>
+          <span v-text="'Olho ' + features.cor_olho.nome"></span>
         </div>
         <div class="feature-item">
-          <span>Peso 64kg</span>
+          <span v-text="'Peso ' + features.peso + 'kg'"></span>
         </div>
         <div class="feature-item">
-          <span>Manequim M</span>
+          <span v-text="'Manequim ' + features.manequim.nome"></span>
         </div>
         <div class="feature-item">
-          <span>Quadril 50</span>
+          <span v-text="'Quadril ' + features.quadril"></span>
         </div>
         <div class="feature-item">
-          <span>Altura 1.80</span>
+          <span v-text="'Altura ' + features.altura">Altura 1.80</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" v-text="'Calçado ' + features.calcado">
           <span>Calçado 42</span>
         </div>
       </div>
     </div>
     <!-- IMAGENS ======================== -->
-    <div class="section">
-      <div class="my-pictures">
-        <span>Minhas fotos</span>
+
+    <div class="tab">
+      <button class="tablinks" @click="openCity(event, 'sectionJobs')">
+        Seção de Jobs
+      </button>
+      <button class="tablinks" @click="openCity(event, 'polaroids')">
+        Seção de Polaroids
+      </button>
+      <button class="tablinks" @click="openCity(event, 'books')">
+        Seção de Books
+      </button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="sectionJobs" class="tabcontent">
+      <div class="images-profile">
+        <div
+          class="picture-profile"
+          v-for="(upload, key) in albuns[0].uploads"
+          :key="key"
+        >
+          <img :src="upload.url" alt="" />
+        </div>
       </div>
       <div class="add-pictures">
         <span>Adicionar foto</span>
         <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
       </div>
     </div>
-    <div class="images-profile">
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/6389877/pexels-photo-6389877.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          alt=""
-        />
+
+    <div id="polaroids" class="tabcontent">
+      <div class="images-profile">
+        <div
+          class="picture-profile"
+          v-for="(upload, key) in albuns[1].uploads"
+          :key="key"
+        >
+          <img :src="upload.url" alt="" />
+        </div>
       </div>
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/6602751/pexels-photo-6602751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          alt=""
-        />
+      <div class="add-pictures">
+        <span>Adicionar foto</span>
+        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
       </div>
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/8624947/pexels-photo-8624947.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-          alt=""
-        />
+    </div>
+
+    <div id="books" class="tabcontent">
+      <div class="images-profile">
+        <div
+          class="picture-profile"
+          v-for="(upload, key) in albuns[2].uploads"
+          :key="key"
+        >
+          <img :src="upload.url" alt="" />
+        </div>
       </div>
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/935822/pexels-photo-935822.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          alt=""
-        />
-      </div>
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/4668528/pexels-photo-4668528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          alt=""
-        />
-      </div>
-      <div class="picture-profile">
-        <img
-          src="https://images.pexels.com/photos/2616970/pexels-photo-2616970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          alt=""
-        />
+      <div class="add-pictures">
+        <span>Adicionar foto</span>
+        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
       </div>
     </div>
   </div>
@@ -110,9 +124,62 @@
 
 <script>
 import Menu from "../components/Menu.vue";
+import Model from "../services/request/model";
+import Jobs from "../services/request/jobs";
 export default {
   components: {
     Menu,
+  },
+  mounted() {
+    this.getUser();
+  },
+  data() {
+    return {
+      user: null,
+      features: null,
+      albuns: null,
+    };
+  },
+  methods: {
+    async getUser() {
+      const user = await JSON.parse(localStorage.getItem("usuario"));
+      if (!user) {
+        this.$router.replace({ name: "login" });
+      }
+      if (user) {
+        const response = await Model.getFeaturesModel(user.modelo.id);
+        if (response.status === 200) {
+          this.features = response.data.caracteristicas[0];
+        }
+        this.user = user.modelo;
+        this.getAlbum(this.user.id);
+      }
+    },
+    async getAlbum(id) {
+      const response = await Jobs.getAlbum(id);
+      this.albuns = response.data;
+      console.log(this.albuns);
+    },
+    openCity(evt, cityName) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    },
   },
 };
 </script>
@@ -126,7 +193,9 @@ export default {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding-top: 40px;
+  max-width: 1366px;
 }
 .photo-circle {
   width: 152px;
@@ -181,6 +250,7 @@ export default {
 .features {
   width: 75%;
   margin: 0 auto;
+  max-width: 1366px;
 }
 .features-title {
   color: #404040;
@@ -228,9 +298,9 @@ export default {
 }
 .images-profile {
   width: 75%;
-  margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .images-profile .picture-profile {
@@ -240,6 +310,47 @@ export default {
   width: 98%;
   height: 300px;
   object-fit: cover;
+}
+/* Style the tab */
+.tab {
+  /* overflow: hidden; */
+  max-width: 1366px;
+  margin: 0 auto;
+
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: flex;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-width: 1366px;
+  margin: 0 auto;
 }
 /* RESPONSIVE ================================= */
 @media (max-width: 468px) {
