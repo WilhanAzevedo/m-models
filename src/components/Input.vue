@@ -4,7 +4,7 @@
     <input
       :type="type"
       :placeholder="placeholder"
-      :value="data"
+      :value="value"
       @input="$emit('input', $event.target.value)"
     />
   </div>
@@ -24,7 +24,7 @@ export default {
     type: {
       type: String,
     },
-    data: String,
+    value: [String, Number],
   },
 };
 </script>
