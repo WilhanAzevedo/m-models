@@ -26,6 +26,12 @@
               <img src="../assets/close-button.svg" alt="" />
             </div>
           </div>
+          <div class="image-responsive">
+            <img
+              src="https://blog.revendakwg.com.br/wp-content/uploads/2017/05/fazer-uma-revista-750x410.png"
+              alt=""
+            />
+          </div>
           <div class="description">
             <span
               >Precisamos de 2 rapazes e duas meninas de 18 a 25 anos <br />
@@ -135,5 +141,55 @@ export default {
 }
 .header-details .close-button img {
   padding: 10px;
+}
+.header-details .image-responsive {
+  visibility: hidden;
+  display: none;
+}
+/* RESPONSIVE JOBS DETAILS================================ */
+
+@media (max-width: 400px) {
+  .job-header {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .header-details .details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* margin: 0 auto; */
+  }
+  .header-details .image {
+    visibility: hidden;
+    display: none;
+  }
+  .header-details .image-responsive {
+    width: 100%;
+  }
+  .header-details .image-responsive img {
+    width: 100%;
+    height: 328px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .header-details .image-responsive {
+    visibility: visible;
+    display: inline;
+  }
+  .header-details .button-apply {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-left: 0;
+  }
+  .header-details .description {
+    font-size: 0.9rem;
+    color: #908f8f;
+    padding: 20px 0;
+    padding-bottom: 40px;
+  }
 }
 </style>
