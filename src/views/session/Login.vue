@@ -26,6 +26,9 @@
           Esqueceu a senha?</router-link
         >
       </div>
+      <div v-if="error" class="user-no-found">
+        <span>Usuário não encontrado</span>
+      </div>
 
       <div class="buttons">
         <Button
@@ -55,6 +58,7 @@ export default {
         email: null,
         senha: null,
       },
+      error: false,
     };
   },
   methods: {
@@ -66,15 +70,19 @@ export default {
         .login(this.user)
         .then((response) => {
           if (response.status === 200) {
+            localStorage.setItem("usuario", JSON.stringify(response.data));
+            localStorage.setItem("token", response.data.token);
             this.$router.push({ name: "jobs" });
           }
         })
-        .catch((error) => console.log("erro da requisição", error));
+        .catch(() => (this.error = true));
     },
     onEmail(value) {
+      this.error = false;
       this.user.email = value;
     },
     onPass(value) {
+      this.error = false;
       this.user.senha = value;
     },
   },
@@ -105,7 +113,6 @@ export default {
   font-size: 1rem;
   padding: 20px 0px;
 }
-
 a {
   font-size: 0.875rem;
   text-decoration: none;
@@ -113,5 +120,16 @@ a {
   display: flex;
   justify-content: flex-end;
   padding: 10px 0px;
+}
+.user-no-found {
+  background: #fcdfdf;
+  border: 1px solid #d12b2b;
+  border-radius: 0.2rem;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.user-no-found span {
+  color: #d12b2b;
+  font-size: 13px;
 }
 </style>
