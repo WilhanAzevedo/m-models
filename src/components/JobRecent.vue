@@ -1,5 +1,5 @@
 <template>
-  <div class="job-recent">
+  <div class="job-recent" @click="clickDetails">
     <div class="job-image">
       <img v-if="img" :src="img" :alt="placeholder" />
     </div>
@@ -23,6 +23,7 @@ export default {
       default: "",
     },
     placeholder: String,
+    clickDetails: Function,
   },
 };
 </script>
@@ -48,5 +49,9 @@ export default {
   object-fit: cover;
   border-radius: 0.8rem;
   cursor: pointer;
+}
+/* RESPONSIVE MY JOBS ================================ */
+
+@media (max-width: 400px) {
 }
 </style>
