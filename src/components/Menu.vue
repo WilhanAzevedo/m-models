@@ -1,38 +1,72 @@
 <template>
-  <div class="menu">
-    <div class="header">
-      <div class="nav-bar">
-        <div class="logo">
-          <img src="../assets/logo.jpeg" alt="Logo" />
+  <div>
+    <div class="menu">
+      <div class="header">
+        <div class="nav-bar">
+          <div class="logo">
+            <img src="../assets/logo.jpeg" alt="Logo" />
+          </div>
+          <div>
+            <ul class="main-nav">
+              <li>
+                <router-link :to="{ name: 'profile' }">Perfil</router-link>
+              </li>
+              <li><router-link :to="{ name: 'jobs' }">Jobs</router-link></li>
+              <li>
+                <router-link :to="{ name: 'MyJobs' }"> Meus jobs </router-link>
+              </li>
+              <li>
+                <a href="https://wa.me/556193707131" target="_blank">Suporte</a>
+              </li>
+              <li>
+                <a href="https://t.me/joinchat/osN4TrYbmVFlMzkx" target="_blank"
+                  >M Models no Telegram</a
+                >
+              </li>
+              <li><router-link :to="{ name: 'login' }">Sair</router-link></li>
+            </ul>
+          </div>
+          <div id="menu-responsive" @click="openNav">
+            <img src="../assets/menu.svg" alt="" />
+          </div>
         </div>
-        <div>
-          <ul class="main-nav">
-            <li><router-link :to="{ name: 'profile' }">Perfil</router-link></li>
-            <li><router-link :to="{ name: 'jobs' }">Jobs</router-link></li>
-            <li>
-              <router-link :to="{ name: 'MyJobs' }"> Meus jobs </router-link>
-            </li>
-            <li>
-              <a href="https://wa.me/556193707131" target="_blank">Suporte</a>
-            </li>
-            <li>
-              <a href="https://t.me/joinchat/osN4TrYbmVFlMzkx" target="_blank"
-                >M Models no Telegram</a
-              >
-            </li>
-            <li><router-link :to="{ name: 'login' }">Sair</router-link></li>
-          </ul>
-        </div>
-        <div id="menu-responsive">
-          <img src="../assets/menu.svg" alt="" />
-        </div>
+      </div>
+    </div>
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav()"
+        >&times;</a
+      >
+
+      <div class="overlay-content">
+        <router-link :to="{ name: 'profile' }">Perfil</router-link>
+        <a href="#"></a>
+        <a href="#"><router-link :to="{ name: 'jobs' }">Jobs</router-link></a>
+        <a href="#">
+          <router-link :to="{ name: 'MyJobs' }"> Meus jobs </router-link>
+        </a>
+        <a href="https://wa.me/556193707131" target="_blank">Suporte</a>
+
+        <a href="https://t.me/joinchat/osN4TrYbmVFlMzkx" target="_blank"
+          >M Models no Telegram</a
+        >
+        <a href="#"><router-link :to="{ name: 'login' }">Sair</router-link></a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    openNav() {
+      document.getElementById("myNav").style.width = "100%";
+    },
+
+    closeNav() {
+      document.getElementById("myNav").style.width = "0%";
+    },
+  },
+};
 </script>
 
 <style>
@@ -64,6 +98,18 @@ export default {};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 17px;
+}
+.main-nav li:hover {
+  background-color: #ddd;
+  border-radius: 0.4rem;
+  padding: 5px 6px;
 }
 
 .main-nav ul {
@@ -84,6 +130,46 @@ export default {};
   font-size: 0.8rem;
   cursor: pointer;
 }
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow-x: hidden;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
 
 /* RESPONSIVE ============================= */
 @media (max-width: 1068px) {
@@ -102,6 +188,14 @@ export default {};
   .menu .header {
     width: 100%;
     padding: 0 15px;
+  }
+  .overlay a {
+    font-size: 20px;
+  }
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
   }
   #menu-responsive img {
     width: 130%;
