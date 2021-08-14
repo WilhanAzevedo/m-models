@@ -11,36 +11,21 @@
           title="Editorial de revista"
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de revista"
+          :clickDetails="clickDetails"
         />
         <JobRecent
           img="https://www.quimicolla.com.br/wp-content/uploads/2020/12/Producao-de-calcados-de-ponta-a-ponta-em-Sao-Joao-Batista-pichi.jpg"
           title="Loja de calçados"
           date="16/07/2021 - 00:00"
           placeholder="Imagem ilustrativa de calçados"
+          :clickDetails="clickDetails"
         />
         <JobRecent
           img="https://blog.lavillecasa.com.br/wp-content/uploads/2020/01/GettyImages-942746880-1-750x499.jpg"
           title="Atendente em evento"
           date="16/07/2021 - 00:00"
           placeholder="Um homem preparando drinks"
-        />
-        <JobRecent
-          img="https://cptstatic.s3.amazonaws.com/imagens/enviadas/materias/materia7272/m-treinamento-em-reservas-e-recepcao-cursos-cpt.jpg"
-          title="Atendente em evento"
-          date="16/07/2021 - 00:00"
-          placeholder="uma mulher atendendo o telefone"
-        />
-        <JobRecent
-          img="https://rcedigital.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/03/2-2-dicasdemaquiagem11-03.jpg.webp"
-          title="Campanha para cosméticos"
-          date="16/07/2021 - 00:00"
-          placeholder="Produtos de maquiagem"
-        />
-        <JobRecent
-          img="https://rcedigital.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/03/2-2-dicasdemaquiagem11-03.jpg.webp"
-          title="Campanha para cosméticos"
-          date="16/07/2021 - 00:00"
-          placeholder="Produtos de maquiagem"
+          :clickDetails="clickDetails"
         />
       </div>
     </div>
@@ -120,7 +105,7 @@ export default {
 <style>
 .jobs {
 }
-.jobs .list-jobs,
+.list-jobs,
 .all-jobs {
   width: 75%;
   margin: 0 auto;
@@ -141,5 +126,14 @@ export default {
 .all-jobs .all-cards {
   display: flex;
   flex-wrap: wrap;
+}
+/* RESPONSIVE MY JOBS ================================ */
+
+@media (max-width: 400px) {
+  .jobs .all-jobs,
+  .list-jobs {
+    width: 95%;
+    margin: 0 auto;
+  }
 }
 </style>
