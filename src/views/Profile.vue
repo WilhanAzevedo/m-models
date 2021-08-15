@@ -1,122 +1,142 @@
 <template>
-  <div class="profile">
+  <div class="app-profile">
     <Menu />
-    <div class="personal-information" v-if="user">
-      <div class="description">
-        <div class="photo-circle">
-          <img :src="user.foto_perfil" alt="Perfil" />
-        </div>
-        <div class="info-user">
-          <span v-text="user.nome + ' ' + user.sobre_nome"></span>
-          <div class="bottom-info">
-            <div class="age" v-text="user.idade + 'y'"></div>
-            <div class="location">
-              <img src="../assets/localization.svg" alt="Localização" />
-              <span v-text="user.cidade + ', ' + user.estado"></span>
+
+    <div class="profile">
+      <div class="personal-information" v-if="user">
+        <div class="description">
+          <div class="photo-circle">
+            <img :src="user.foto_perfil" alt="Perfil" />
+          </div>
+          <div class="info-user">
+            <span v-text="user.nome + ' ' + user.sobre_nome"></span>
+            <div class="bottom-info">
+              <div class="age" v-text="user.idade + 'y'"></div>
+              <div class="location">
+                <img src="../assets/localization.svg" alt="Localização" />
+                <span v-text="user.cidade + ', ' + user.estado"></span>
+              </div>
+            </div>
+            <div class="about">
+              <span class="about-title">Sobre mim:</span>
+              <div class="about-description">
+                <span>
+                  Junte-se a nós para um lançamento especial do Nubank, em nosso
+                  canal no Youtube
+                </span>
+              </div>
             </div>
           </div>
-          <div class="about">
-            <span class="about-title">Sobre mim:</span>
-            <div class="about-description">
-              <span>
-                Junte-se a nós para um lançamento especial do Nubank, em nosso
-                canal no Youtube
-              </span>
-            </div>
+        </div>
+        <router-link :to="{ name: 'EditProfile' }" class="edit">
+          <span> Editar </span>
+          <img src="../assets/edit.svg" alt="Editar" />
+        </router-link>
+      </div>
+      <!-- CARACTERISTICAS ===================== -->
+      <div class="features" v-if="features">
+        <div class="features-title">
+          <span>Caracteristicas</span>
+        </div>
+        <div class="features-list">
+          <div class="feature-item">
+            <span v-text="'Olho ' + features.cor_olho.nome"></span>
+          </div>
+          <div class="feature-item">
+            <span v-text="'Peso ' + features.peso + 'kg'"></span>
+          </div>
+          <div class="feature-item">
+            <span v-text="'Manequim ' + features.manequim.nome"></span>
+          </div>
+          <div class="feature-item">
+            <span v-text="'Quadril ' + features.quadril"></span>
+          </div>
+          <div class="feature-item">
+            <span v-text="'Altura ' + features.altura">Altura 1.80</span>
+          </div>
+          <div class="feature-item" v-text="'Calçado ' + features.calcado">
+            <span>Calçado 42</span>
           </div>
         </div>
       </div>
-      <router-link :to="{ name: 'EditProfile' }" class="edit">
-        <span> Editar </span>
-        <img src="../assets/edit.svg" alt="Editar" />
-      </router-link>
-    </div>
-    <!-- CARACTERISTICAS ===================== -->
-    <div class="features" v-if="features">
-      <div class="features-title">
-        <span>Caracteristicas</span>
-      </div>
-      <div class="features-list">
-        <div class="feature-item">
-          <span v-text="'Olho ' + features.cor_olho.nome"></span>
-        </div>
-        <div class="feature-item">
-          <span v-text="'Peso ' + features.peso + 'kg'"></span>
-        </div>
-        <div class="feature-item">
-          <span v-text="'Manequim ' + features.manequim.nome"></span>
-        </div>
-        <div class="feature-item">
-          <span v-text="'Quadril ' + features.quadril"></span>
-        </div>
-        <div class="feature-item">
-          <span v-text="'Altura ' + features.altura">Altura 1.80</span>
-        </div>
-        <div class="feature-item" v-text="'Calçado ' + features.calcado">
-          <span>Calçado 42</span>
-        </div>
-      </div>
-    </div>
-    <!-- IMAGENS ======================== -->
+      <!-- TAB ======================== -->
 
-    <div class="tab">
-      <button class="tablinks" @click="openCity(event, 'sectionJobs')">
-        Seção de Jobs
-      </button>
-      <button class="tablinks" @click="openCity(event, 'polaroids')">
-        Seção de Polaroids
-      </button>
-      <button class="tablinks" @click="openCity(event, 'books')">
-        Seção de Books
-      </button>
-    </div>
-
-    <!-- Tab content -->
-    <div id="sectionJobs" class="tabcontent">
-      <div class="images-profile">
+      <div class="tab">
         <div
-          class="picture-profile"
-          v-for="(upload, key) in albuns[0].uploads"
-          :key="key"
+          :class="tab1 ? 'tab-active' : 'tab-off'"
+          @click="openSection('sectionJobs')"
         >
-          <img :src="upload.url" alt="" />
+          <span> Seção de Jobs</span>
         </div>
-      </div>
-      <div class="add-pictures">
-        <span>Adicionar foto</span>
-        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
-      </div>
-    </div>
-
-    <div id="polaroids" class="tabcontent">
-      <div class="images-profile">
         <div
-          class="picture-profile"
-          v-for="(upload, key) in albuns[1].uploads"
-          :key="key"
+          :class="tab2 ? 'tab-active' : 'tab-off'"
+          @click="openSection('polaroids')"
         >
-          <img :src="upload.url" alt="" />
+          <span> Seção de Polaroids</span>
         </div>
-      </div>
-      <div class="add-pictures">
-        <span>Adicionar foto</span>
-        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
-      </div>
-    </div>
-
-    <div id="books" class="tabcontent">
-      <div class="images-profile">
         <div
-          class="picture-profile"
-          v-for="(upload, key) in albuns[2].uploads"
-          :key="key"
+          :class="tab3 ? 'tab-active' : 'tab-off'"
+          @click="openSection('books')"
         >
-          <img :src="upload.url" alt="" />
+          <span> Seção de Books</span>
         </div>
       </div>
-      <div class="add-pictures">
-        <span>Adicionar foto</span>
-        <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
+
+      <div
+        id="sectionJobs"
+        :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'"
+        v-if="albuns"
+      >
+        <!-- IMAGES =========================== -->
+        <div class="images-profile">
+          <div class="add-photo">
+            <div class="upload">
+              <div class="add-upload">
+                <span>Adicionar foto</span>
+                <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
+              </div>
+            </div>
+          </div>
+          <div
+            class="picture-profile"
+            v-for="(upload, key) in albuns[0].uploads"
+            :key="key"
+          >
+            <img :src="upload.url" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="polaroids"
+        :class="tab2 ? 'tabcontent active-tab' : 'tabcontent'"
+        v-if="albuns"
+      >
+        <div class="images-profile">
+          <div
+            class="picture-profile"
+            v-for="(upload, key) in albuns[1].uploads"
+            :key="key"
+          >
+            <img :src="upload.url" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="books"
+        :class="tab3 ? 'tabcontent active-tab' : 'tabcontent'"
+        v-if="albuns"
+      >
+        <div class="images-profile">
+          <div
+            class="picture-profile"
+            v-for="(upload, key) in albuns[2].uploads"
+            :key="key"
+          >
+            <img :src="upload.url" alt="" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -138,6 +158,9 @@ export default {
       user: null,
       features: null,
       albuns: null,
+      tab1: true,
+      tab2: false,
+      tab3: false,
     };
   },
   methods: {
@@ -160,42 +183,44 @@ export default {
       this.albuns = response.data;
       console.log(this.albuns);
     },
-    openCity(evt, cityName) {
-      // Declare all variables
-      var i, tabcontent, tablinks;
-
-      // Get all elements with class="tabcontent" and hide them
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+    openSection(sectionName) {
+      if (sectionName === "sectionJobs") {
+        this.tab1 = true;
+        this.tab2 = false;
+        this.tab3 = false;
+      }
+      if (sectionName === "polaroids") {
+        this.tab1 = false;
+        this.tab2 = true;
+        this.tab3 = false;
+      }
+      if (sectionName === "books") {
+        this.tab1 = false;
+        this.tab2 = false;
+        this.tab3 = true;
       }
 
-      // Get all elements with class="tablinks" and remove the class "active"
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-
-      // Show the current tab, and add an "active" class to the button that opened the tab
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
+      console.log(sectionName);
     },
   },
 };
 </script>
 
 <style>
-.profile {
+.app-profile {
   background: white;
+
+  overflow-x: hidden;
 }
-.personal-information {
+.profile {
   width: 75%;
   margin: 0 auto;
+}
+.personal-information {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 40px;
-  max-width: 1366px;
 }
 .photo-circle {
   width: 152px;
@@ -219,6 +244,8 @@ export default {
   display: flex;
   color: #908f8f;
   font-size: 0.9rem;
+  width: 100%;
+  clip-path: circle(39%);
   cursor: pointer;
 }
 
@@ -232,6 +259,7 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 10px;
+  width: 100%;
 }
 
 .bottom-info .location img {
@@ -247,11 +275,7 @@ export default {
 }
 
 /* Caracteristicas ============================= */
-.features {
-  width: 75%;
-  margin: 0 auto;
-  max-width: 1366px;
-}
+
 .features-title {
   color: #404040;
 }
@@ -273,31 +297,41 @@ export default {
 }
 
 /* IMAGENS =================================== */
-.profile .section {
-  width: 75%;
-  margin: 0 auto;
-  display: flex;
+.images-profile .add-photo {
+  width: 33.32%;
+  /* display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  color: #404040;
-  margin-bottom: 10px;
+  background: #e5e5e5; */
+  background: red;
+
+  height: 300px;
+  /* height: 300px; */
 }
-.profile .section .add-pictures {
+.images-profile .add-photo img {
+  width: 98%;
+  object-fit: cover;
+}
+.profile .add-photo .add-upload {
   display: flex;
+  justify-content: center;
   align-items: center;
-  color: #908f8f;
+  flex-direction: column;
+}
+.profile .add-pictures {
+  height: 300px;
+  width: 98%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: #404040;
   cursor: pointer;
   border: 1px solid #908f8f;
-  padding: 5px 10px;
-  border-radius: 8px;
-  margin-right: 6px;
 }
-.profile .section .add-pictures span {
-  margin-right: 8px;
-}
+
 .images-profile {
-  width: 75%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,53 +342,54 @@ export default {
 }
 .images-profile .picture-profile img {
   width: 98%;
-  height: 300px;
+  height: 307px;
   object-fit: cover;
 }
-/* Style the tab */
-.tab {
-  /* overflow: hidden; */
-  max-width: 1366px;
-  margin: 0 auto;
 
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+/* Style the tab ================================================*/
+.profile .tab {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #404040;
+  margin-bottom: 10px;
 }
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
+.tab-active,
+.tab-off {
   cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
+  width: 32.7%;
 }
+.tab-active {
+  font-weight: 500;
+  padding: 10px 0;
+  font-size: 1rem;
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
+  color: rgb(7, 6, 6);
+  border-bottom: 1px solid rgb(7, 6, 6);
+  transition: all 0.4s ease-in-out;
 }
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
+.tab-off {
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #908f8f;
+  border-bottom: 1px solid #908f8f;
 }
 
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-  max-width: 1366px;
-  margin: 0 auto;
+  /* padding: 6px 12px; */
+  /* border-top: none; */
 }
+.active-tab {
+  display: block;
+}
+
 /* RESPONSIVE ================================= */
 @media (max-width: 468px) {
-  .personal-information {
+  .personal-information,
+  .profile {
     width: 100%;
     padding: 0 15px;
   }
@@ -381,7 +416,7 @@ export default {
   }
   .features .feature-item {
     width: 30%;
-    font-size: 0.86rem;
+    font-size: 0.8rem;
   }
   .profile .section {
     width: 88%;
