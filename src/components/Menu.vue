@@ -71,10 +71,10 @@ export default {
 
 <style>
 .menu {
-  background: white;
   border-bottom: 2px solid #f4f4f4;
   font-family: "Poppins", sans-serif;
   font-weight: normal;
+  background: white;
 }
 .menu .header {
   padding: 0.5rem 0;
@@ -87,10 +87,10 @@ export default {
 }
 
 .nav-bar {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1400px;
   padding: 0;
 }
 
