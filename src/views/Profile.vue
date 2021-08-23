@@ -20,7 +20,7 @@
             <div class="about">
               <span class="about-title">Sobre mim:</span>
               <div class="about-description">
-                <span>
+                <span v-text="features.caracteristicas_adcionais">
                   Junte-se a nós para um lançamento especial do Nubank, em nosso
                   canal no Youtube
                 </span>
@@ -88,13 +88,12 @@
         v-if="albuns"
       >
         <!-- IMAGES =========================== -->
+
         <div class="images-profile">
           <div class="add-photo">
-            <div class="upload">
-              <div class="add-upload">
-                <span>Adicionar foto</span>
-                <img src="../assets/add-pictures.svg" alt="Adicionar fotos" />
-              </div>
+            <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
+            <div class="add-upload">
+              <span>Adicionar foto</span>
             </div>
           </div>
           <div
@@ -113,6 +112,12 @@
         v-if="albuns"
       >
         <div class="images-profile">
+          <div class="add-photo">
+            <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
+            <div class="add-upload">
+              <span>Adicionar foto</span>
+            </div>
+          </div>
           <div
             class="picture-profile"
             v-for="(upload, key) in albuns[1].uploads"
@@ -129,6 +134,12 @@
         v-if="albuns"
       >
         <div class="images-profile">
+          <div class="add-photo">
+            <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
+            <div class="add-upload">
+              <span>Adicionar foto</span>
+            </div>
+          </div>
           <div
             class="picture-profile"
             v-for="(upload, key) in albuns[2].uploads"
@@ -252,7 +263,7 @@ export default {
 .bottom-info {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   color: #908f8f;
 }
 .bottom-info .location {
@@ -298,43 +309,32 @@ export default {
 
 /* IMAGENS =================================== */
 .images-profile .add-photo {
-  width: 33.32%;
-  /* display: flex;
-  justify-content: center;
+  width: 33.33%;
+  height: 307px;
+  display: flex;
   align-items: center;
-  background: #e5e5e5; */
-  background: red;
-
-  height: 300px;
-  /* height: 300px; */
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease-in-out;
+}
+.images-profile .add-photo:hover {
+  background: #e5e5e5;
+  width: 33.34%;
 }
 .images-profile .add-photo img {
-  width: 98%;
-  object-fit: cover;
+  width: 50px;
 }
-.profile .add-photo .add-upload {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.images-profile .add-upload {
+  font-size: 1rem;
+  color: #808080;
 }
-.profile .add-pictures {
-  height: 300px;
-  width: 98%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: black;
-  color: #404040;
-  cursor: pointer;
-  border: 1px solid #908f8f;
-}
-
 .images-profile {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 .images-profile .picture-profile {
