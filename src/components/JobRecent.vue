@@ -30,7 +30,7 @@ export default {
 
 <style>
 .job-recent {
-  width: 75%;
+  /* width: 75%; */
   display: flex;
   align-items: center;
   justify-content: center;
