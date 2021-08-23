@@ -120,12 +120,18 @@ export default {
 .jobs .list-jobs-recents {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
+  /* background: red; */
 }
 
 .all-jobs .all-cards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+}
+.jobs .all-cards .job-card {
+  margin: 10px 0;
+  width: 32%;
 }
 /* RESPONSIVE MY JOBS ================================ */
 
@@ -134,6 +140,10 @@ export default {
   .list-jobs {
     width: 95%;
     margin: 0 auto;
+  }
+  .jobs .all-cards .job-card {
+    margin: 10px 0;
+    width: 100%;
   }
 }
 </style>
