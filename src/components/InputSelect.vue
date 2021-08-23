@@ -1,0 +1,63 @@
+<template>
+  <div class="input-group-select">
+    <select
+      class="input-select"
+      v-model="selected"
+      @input="$emit('input', $event.target.value)"
+    >
+      <option value="Feminino">Feminino</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Prefiro não informar">Prefiro não informar</option>
+    </select>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    placeholder: {
+      type: String,
+    },
+    type: {
+      type: String,
+    },
+    value: [String, Number],
+  },
+  mounted() {
+    this.selected = this.value;
+  },
+  data() {
+    return {
+      selected: null,
+    };
+  },
+};
+</script>
+
+<style>
+.input-group-select {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 12px 10px;
+  margin: 5px 0;
+  border-radius: 0.4rem;
+  /* width: 350px; */
+}
+.input-select {
+  font-weight: 400;
+  color: #1a1919;
+  border-radius: 0.4rem;
+  outline: none;
+  background: white;
+  font-size: 1rem;
+  margin-left: 5px;
+  width: 100%;
+}
+.input-group-select .input-select option:checked {
+  background: #808080;
+  color: white;
+  padding: 12px 10px;
+  font-size: 1rem;
+}
+</style>
