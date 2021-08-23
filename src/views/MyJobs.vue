@@ -1,5 +1,5 @@
 <template>
-  <div class="jobs">
+  <div class="my-jobs">
     <Menu />
     <div class="all-jobs">
       <div class="list-title">
@@ -75,26 +75,36 @@ export default {
 <style>
 .jobs {
 }
-.jobs .list-jobs,
-.all-jobs {
+.my-jobs .all-jobs {
   width: 75%;
   margin: 0 auto;
   padding-top: 50px;
 }
-.jobs .list-title {
+.my-jobs .list-title {
   margin-bottom: 1rem;
   font-size: 1rem;
   color: #404040;
 }
 
-.jobs .list-jobs-recents {
+.my-jobs .all-jobs .all-cards {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-}
-
-.all-jobs .all-cards {
-  display: flex;
   flex-wrap: wrap;
+}
+.my-jobs .all-cards .job-card {
+  margin: 10px 0;
+  width: 32%;
+}
+/* RESPONSIVE MY JOBS ====================== */
+@media (max-width: 400px) {
+  .my-jobs .all-jobs,
+  .list-jobs {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .my-jobs .all-cards .job-card {
+    margin: 10px 0;
+    width: 100%;
+  }
 }
 </style>
