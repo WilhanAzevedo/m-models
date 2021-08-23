@@ -6,4 +6,10 @@ export default {
             url: "/modelo/caracteristica/listarmodelo/" + id,
 
         })
+    // getUser: (id) =>
+    //     api({
+    //         method: "GET"
+    //         url: "/modelo/"
+
+    //     })
 }
