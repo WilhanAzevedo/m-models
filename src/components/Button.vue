@@ -23,9 +23,6 @@ button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-/* button:hover {
-  background: black;
-} */
 
 .primary {
   background: rgb(29, 28, 28);
