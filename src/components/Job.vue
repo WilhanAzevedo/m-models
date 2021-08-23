@@ -36,12 +36,12 @@ export default {
 .job-card {
   background: white;
   padding: 20px;
-  margin: 10px;
+  /* margin: 10px; */
   border-radius: 1rem;
   cursor: pointer;
 }
 .job-card .card-image {
-  width: 270px;
+  width: 100%;
   background: white;
 }
 .job-card .card-image img {
