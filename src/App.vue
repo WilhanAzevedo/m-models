@@ -16,7 +16,6 @@
 
 #app {
   background: #f0f2f5;
-  min-width: 100vw;
   font-family: "Poppins", sans-serif;
 }
 </style>
