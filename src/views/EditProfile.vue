@@ -2,147 +2,219 @@
   <div class="edit-profile">
     <Menu />
     <div class="edit-infos">
-      <div class="info-title">
-        <span>Informações pessoais</span>
+      <div class="tab">
+        <div
+          :class="tab1 ? 'tab-active' : 'tab-off'"
+          @click="openSection('infoUser')"
+        >
+          <span>Informações pessoais</span>
+        </div>
+        <div
+          :class="tab2 ? 'tab-active' : 'tab-off'"
+          @click="openSection('features')"
+        >
+          <span>Caracteristicas</span>
+        </div>
       </div>
-      <div class="info-personal">
-        <div class="change-photo">
-          <div class="photo">
-            <img src="../assets/img-contractor.jpg" alt="Alterar foto" />
+      <div id="infoUser" :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'">
+        <!-- <div class="info-title">
+          <span>Informações pessoais</span>
+        </div> -->
+        <div class="info-personal">
+          <div class="change-photo">
+            <div class="photo">
+              <img src="../assets/img-contractor.jpg" alt="Alterar foto" />
+            </div>
+            <div class="button-edit">
+              <span>Alterar foto</span>
+              <img src="../assets/add-pictures.svg" alt="" />
+            </div>
           </div>
-          <div class="button-edit">
-            <span>Alterar foto</span>
-            <img src="../assets/add-pictures.svg" alt="" />
+          <div class="form" v-if="user">
+            <div class="input">
+              <span>Nome</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Nome'"
+                :value="user.nome"
+                @input="onName"
+              />
+            </div>
+            <div class="input">
+              <span>Sobrenome</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Sobrenome'"
+                :value="user.sobre_nome"
+                @input="onAboutName"
+              />
+            </div>
+            <div class="input">
+              <span>Data de nascimento</span>
+              <Input
+                :type="'date'"
+                :placeholder="'2017-01-17'"
+                :data="'2017-01-17'"
+                :value="formatDate(user.data_nascimento)"
+                @input="onDateBirthday"
+              />
+            </div>
+            <div class="input">
+              <span>Idade</span>
+              <Input
+                :type="'number'"
+                :placeholder="'Idade'"
+                :value="user.idade"
+                @input="onAge"
+              />
+            </div>
+            <div class="input">
+              <span>Gênero</span>
+              <InputSelect
+                :type="'select'"
+                :placeholder="'Gênero'"
+                :value="user.genero"
+                @input="onGender"
+              />
+            </div>
+            <div class="input">
+              <span>Estado</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Estado'"
+                :value="user.estado"
+              />
+            </div>
+            <div class="input">
+              <span>Cidade</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Cidade'"
+                :value="user.cidade"
+              />
+            </div>
+            <div class="input">
+              <span>Celular</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Celular'"
+                :value="user.numero_whats"
+              />
+            </div>
+            <div class="button-save">
+              <div>
+                <Button
+                  :textButton="'Salvar'"
+                  :backgroundButton="'primary'"
+                  :router="saveInfoUser"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form" v-if="user">
+      </div>
+      <div id="features" :class="tab2 ? 'tabcontent active-tab' : 'tabcontent'">
+        <div class="about-input" v-if="feature">
+          <span>Sobre mim:</span>
+          <Input
+            :type="'text'"
+            :placeholder="'Irracionais nas horas vagas'"
+            :value="feature.caracteristicas_adcionais"
+          />
+        </div>
+        <div class="info-title">
+          <span>Detalhes</span>
+        </div>
+        <div class="form-features" v-if="feature">
           <div class="input">
-            <span>Nome completo</span>
+            <span>Cor do cabelo</span>
             <Input
               :type="'text'"
-              :placeholder="'Nome completo'"
-              :value="user.nome + ' ' + user.sobre_nome"
+              :value="feature.cor_cabelo.nome"
+              :placeholder="'Cor do cabelo'"
             />
           </div>
           <div class="input">
-            <span>Data de nascimento</span>
+            <span>Cor dos olhos</span>
             <Input
-              :type="'date'"
-              :placeholder="'2017-01-17'"
-              :data="'2017-01-17'"
-              :value="formatDate(user.data_nascimento)"
+              :type="'text'"
+              :value="feature.cor_olho.nome"
+              :placeholder="'Preto'"
             />
           </div>
           <div class="input">
-            <span>Idade</span>
+            <span>Cor da pele</span>
+            <Input
+              :type="'text'"
+              :value="feature.cor_pele.nome"
+              :placeholder="'Negra'"
+            />
+          </div>
+          <div class="input">
+            <span>Manequim</span>
+            <Input
+              :type="'text'"
+              :value="feature.manequim.nome"
+              :placeholder="'M'"
+            />
+          </div>
+          <div class="input">
+            <span>Altura</span>
             <Input
               :type="'number'"
-              :placeholder="'Idade'"
-              :value="user.idade"
+              :value="feature.altura"
+              :placeholder="'1.80'"
             />
           </div>
           <div class="input">
-            <span>Gênero</span>
+            <span>Peso</span>
             <Input
-              :type="'text'"
-              :placeholder="'Gênero'"
-              :value="user.genero"
+              :type="'number'"
+              :value="feature.peso"
+              :placeholder="'63.0'"
+            />
+          </div>
+          <div class="input">
+            <span>Quadril</span>
+            <Input
+              :type="'number'"
+              :value="feature.quadril"
+              :placeholder="'50'"
+            />
+          </div>
+          <div class="input">
+            <span>Busto torax</span>
+            <Input
+              :type="'number'"
+              :value="feature.busto_torax"
+              :placeholder="'63'"
+            />
+          </div>
+          <div class="input">
+            <span>Calçado</span>
+            <Input
+              :type="'number'"
+              :value="feature.calcado"
+              :placeholder="'42'"
+            />
+          </div>
+          <div class="input">
+            <span>Cintura</span>
+            <Input
+              :type="'number'"
+              :value="feature.cintura"
+              :placeholder="'50'"
             />
           </div>
         </div>
-      </div>
-      <div class="about-input">
-        <span>Sobre mim:</span>
-        <Input :type="'text'" :placeholder="'Irracionais nas horas vagas'" />
-      </div>
-      <div class="info-title">
-        <span>Caracteristicas</span>
-      </div>
-      <div class="form-features" v-if="feature">
-        <div class="input">
-          <span>Cor do cabelo</span>
-          <Input
-            :type="'text'"
-            :value="feature.cor_cabelo.nome"
-            :placeholder="'Cor do cabelo'"
-          />
-        </div>
-        <div class="input">
-          <span>Cor dos olhos</span>
-          <Input
-            :type="'text'"
-            :value="feature.cor_olho.nome"
-            :placeholder="'Preto'"
-          />
-        </div>
-        <div class="input">
-          <span>Cor da pele</span>
-          <Input
-            :type="'text'"
-            :value="feature.cor_pele.nome"
-            :placeholder="'Negra'"
-          />
-        </div>
-        <div class="input">
-          <span>Manequim</span>
-          <Input
-            :type="'text'"
-            :value="feature.manequim.nome"
-            :placeholder="'M'"
-          />
-        </div>
-        <div class="input">
-          <span>Altura</span>
-          <Input
-            :type="'number'"
-            :value="feature.altura"
-            :placeholder="'1.80'"
-          />
-        </div>
-        <div class="input">
-          <span>Peso</span>
-          <Input :type="'number'" :value="feature.peso" :placeholder="'63.0'" />
-        </div>
-        <div class="input">
-          <span>Quadril</span>
-          <Input
-            :type="'number'"
-            :value="feature.quadril"
-            :placeholder="'50'"
-          />
-        </div>
-        <div class="input">
-          <span>Busto torax</span>
-          <Input
-            :type="'number'"
-            :value="feature.busto_torax"
-            :placeholder="'63'"
-          />
-        </div>
-        <div class="input">
-          <span>Calçado</span>
-          <Input
-            :type="'number'"
-            :value="feature.calcado"
-            :placeholder="'42'"
-          />
-        </div>
-        <div class="input">
-          <span>Cintura</span>
-          <Input
-            :type="'number'"
-            :value="feature.cintura"
-            :placeholder="'50'"
-          />
-        </div>
-      </div>
-      <div class="button-save">
-        <div>
-          <Button
-            :textButton="'Salvar'"
-            :backgroundButton="'primary'"
-            :router="save"
-          />
+        <div class="button-save">
+          <div>
+            <Button
+              :textButton="'Salvar'"
+              :backgroundButton="'primary'"
+              :router="saveFeatures"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -152,6 +224,7 @@
 <script>
 import Menu from "../components/Menu.vue";
 import Input from "../components/Input.vue";
+import InputSelect from "../components/InputSelect.vue";
 import Button from "../components/Button.vue";
 import Model from "../services/request/model";
 export default {
@@ -159,11 +232,14 @@ export default {
     Menu,
     Input,
     Button,
+    InputSelect,
   },
   data() {
     return {
       feature: null,
       user: null,
+      tab1: true,
+      tab2: false,
     };
   },
   mounted() {
@@ -188,7 +264,42 @@ export default {
         }
       }
     },
-    save() {},
+    onName(value) {
+      this.user.nome = value;
+    },
+    onAboutName(value) {
+      this.user.sobre_nome = value;
+    },
+
+    onDateBirthday(value) {
+      this.user.data_nascimento = value;
+    },
+
+    onAge(value) {
+      this.user.idade = value;
+    },
+    onGender(value) {
+      this.user.genero = value;
+    },
+
+    saveInfoUser() {
+      console.log(this.user);
+    },
+    saveFeatures() {
+      console.log(this.feature);
+    },
+    openSection(sectionName) {
+      if (sectionName === "infoUser") {
+        this.tab1 = true;
+        this.tab2 = false;
+      }
+      if (sectionName === "features") {
+        this.tab1 = false;
+        this.tab2 = true;
+      }
+
+      console.log(sectionName);
+    },
   },
 };
 </script>
@@ -199,6 +310,7 @@ export default {
 }
 .edit-profile .edit-infos {
   width: 75%;
+  height: 100vh;
   margin: 0 auto;
   padding: 30px 0;
 }
@@ -281,11 +393,50 @@ export default {
   align-items: flex-end;
   justify-content: flex-end;
   margin-top: 10px;
-  /* width: 15%; */
+  width: 100%;
 }
 .edit-profile .button-save div {
   margin-top: 10px;
   /* width: 10%; */
+}
+/* TAB ==================================== */
+.edit-profile .tab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.9rem;
+  color: #404040;
+  margin-bottom: 10px;
+}
+.tab-active,
+.tab-off {
+  cursor: pointer;
+  width: 32.7%;
+}
+.tab-active {
+  font-weight: 500;
+  padding: 10px 0;
+  font-size: 1rem;
+
+  color: rgb(7, 6, 6);
+  border-bottom: 1px solid rgb(7, 6, 6);
+  transition: all 0.4s ease-in-out;
+}
+.tab-off {
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #908f8f;
+  border-bottom: 1px solid #908f8f;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  /* padding: 6px 12px; */
+  /* border-top: none; */
+}
+.active-tab {
+  display: block;
 }
 /* RESPONSIVE ============================== */
 
