@@ -13,22 +13,31 @@
           :class="tab2 ? 'tab-active' : 'tab-off'"
           @click="openSection('features')"
         >
+          <!-- CARACTERISTICAS ================================= -->
           <span>Caracteristicas</span>
         </div>
       </div>
       <div id="infoUser" :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'">
-        <!-- <div class="info-title">
-          <span>Informações pessoais</span>
-        </div> -->
         <div class="info-personal">
           <div class="change-photo">
-            <div class="photo">
+            <!-- <div class="photo">
               <img src="../assets/img-contractor.jpg" alt="Alterar foto" />
+            </div> -->
+
+            <div class="personal-image">
+              <label class="label">
+                <input type="file" @change="onFileChange" />
+                <figure class="personal-figure">
+                  <img :src="urlImg" class="personal-avatar" alt="avatar" />
+                  <figcaption class="personal-figcaption">
+                    <img
+                      src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"
+                    />
+                  </figcaption>
+                </figure>
+              </label>
             </div>
-            <div class="button-edit">
-              <span>Alterar foto</span>
-              <img src="../assets/add-pictures.svg" alt="" />
-            </div>
+            <!-- ========================= -->
           </div>
           <div class="form" v-if="user">
             <div class="input">
@@ -65,6 +74,7 @@
                 :type="'number'"
                 :placeholder="'Idade'"
                 :value="user.idade"
+                disabled
                 @input="onAge"
               />
             </div>
@@ -78,11 +88,21 @@
               />
             </div>
             <div class="input">
+              <span>Celular</span>
+              <Input
+                :type="'text'"
+                :placeholder="'Celular'"
+                :value="user.numero_whats"
+                @input="onWhats"
+              />
+            </div>
+            <div class="input">
               <span>Estado</span>
               <Input
                 :type="'text'"
                 :placeholder="'Estado'"
                 :value="user.estado"
+                @input="onState"
               />
             </div>
             <div class="input">
@@ -91,16 +111,10 @@
                 :type="'text'"
                 :placeholder="'Cidade'"
                 :value="user.cidade"
+                @input="onCity"
               />
             </div>
-            <div class="input">
-              <span>Celular</span>
-              <Input
-                :type="'text'"
-                :placeholder="'Celular'"
-                :value="user.numero_whats"
-              />
-            </div>
+
             <div class="button-save">
               <div>
                 <Button
@@ -177,7 +191,7 @@
           <div class="input">
             <span>Quadril</span>
             <Input
-              :type="'number'"
+              :type="'numupload ber'"
               :value="feature.quadril"
               :placeholder="'50'"
             />
@@ -240,6 +254,8 @@ export default {
       user: null,
       tab1: true,
       tab2: false,
+      urlImg: null,
+      changeImg: false,
     };
   },
   mounted() {
@@ -261,6 +277,9 @@ export default {
         if (response.status === 200) {
           this.feature = response.data.caracteristicas[0];
           this.user = response.data.modelo[0];
+          this.urlImg = this.user.foto_perfil;
+
+          console.log(this.user);
         }
       }
     },
@@ -272,6 +291,8 @@ export default {
     },
 
     onDateBirthday(value) {
+      console.log(value);
+      this.user.idade = this.getAge(value);
       this.user.data_nascimento = value;
     },
 
@@ -281,9 +302,47 @@ export default {
     onGender(value) {
       this.user.genero = value;
     },
+    onWhats(value) {
+      this.user.numero_whats = value;
+    },
+    onState(value) {
+      this.user.estado = value;
+    },
 
-    saveInfoUser() {
-      console.log(this.user);
+    onCity(value) {
+      this.user.cidade = value;
+    },
+
+    getAge(dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    },
+
+    async saveInfoUser() {
+      if (this.changeImg) {
+        this.handleProfileImg();
+      }
+      const user = {
+        nome: this.user.nome,
+        sobre_nome: this.user.sobre_nome,
+        idade: this.user.idade,
+        numero_whats: this.user.numero_whats,
+        data_nascimento:
+          this.formatDate(this.user.data_nascimento) + " 00:00:00",
+        cidade: this.user.cidade,
+        estado: this.user.estado,
+        id: this.user.id,
+      };
+      console.log(user);
+      const response = await Model.changeUser(user);
+
+      console.log(response.data);
     },
     saveFeatures() {
       console.log(this.feature);
@@ -297,8 +356,16 @@ export default {
         this.tab1 = false;
         this.tab2 = true;
       }
-
-      console.log(sectionName);
+    },
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.urlImg = URL.createObjectURL(file);
+      this.changeImg = true;
+      console.log(file);
+    },
+    async handleProfileImg() {
+      const response = await Model.handleProfileImg(this.user.id, this.urlImg);
+      console.log("a imagem foi alterada", response.data);
     },
   },
 };
@@ -325,7 +392,52 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 200px; */
+}
+/* ALTERAR FOTO ===================*/
+.personal-image {
+  text-align: center;
+}
+.personal-image input[type="file"] {
+  display: none;
+}
+.personal-figure {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.personal-avatar {
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: all ease-in-out 0.3s;
+}
+.personal-avatar:hover {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+.personal-figcaption {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  width: inherit;
+  height: inherit;
+  border-radius: 100%;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all ease-in-out 0.3s;
+}
+.personal-figcaption:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.personal-figcaption > img {
+  margin-top: 32.5px;
+  width: 50px;
+  height: 50px;
 }
 
 .edit-profile .change-photo .photo img {
@@ -347,8 +459,6 @@ export default {
   margin-right: 6px;
   font-size: 0.875rem;
   width: 137px;
-}
-.edit-profile .button-edit span {
 }
 
 .edit-profile .button-edit img {
@@ -397,7 +507,6 @@ export default {
 }
 .edit-profile .button-save div {
   margin-top: 10px;
-  /* width: 10%; */
 }
 /* TAB ==================================== */
 .edit-profile .tab {
@@ -432,8 +541,6 @@ export default {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  /* padding: 6px 12px; */
-  /* border-top: none; */
 }
 .active-tab {
   display: block;
@@ -455,7 +562,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: crimson; */
     flex-direction: column;
     width: 100%;
   }
