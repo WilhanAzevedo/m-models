@@ -1,11 +1,12 @@
 <template>
   <div class="input-group-select">
-    <select
-      class="input-select"
-      v-model="selected"
-      @input="$emit('input', $event.target.value)"
-    >
-      <option v-for="(item, key) in values" :data-value="item" :key="key">
+    <select class="input-select" @input="$emit('input', $event.target.value)">
+      <option
+        v-for="(item, key) in values"
+        :value="JSON.stringify(item)"
+        :key="key"
+        :selected="value.nome === item.nome ? true : false"
+      >
         {{ item.nome }}
       </option>
     </select>
@@ -21,16 +22,8 @@ export default {
     type: {
       type: String,
     },
-    value: [String, Number, Object],
+    value: Object,
     values: Array,
-  },
-  mounted() {
-    this.selected = this.value;
-  },
-  data() {
-    return {
-      selected: null,
-    };
   },
 };
 </script>

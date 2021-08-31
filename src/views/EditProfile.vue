@@ -155,33 +155,40 @@
             <InputSelect
               :type="'select'"
               :placeholder="'Cor do cabelo'"
-              :value="{ nome: feature.cor_cabelo }"
+              :value="feature.cor_cabelo"
               :values="colorHair"
               @input="onColorHair"
             />
           </div>
           <div class="input">
             <span>Cor dos olhos</span>
-            <Input
-              :type="'text'"
+
+            <InputSelect
+              :type="'select'"
+              :placeholder="'Cor dos Olhos'"
               :value="feature.cor_olho"
-              :placeholder="'Cor dos olhos'"
+              :values="colorEyes"
+              @input="onColorEyes"
             />
           </div>
           <div class="input">
             <span>Cor da pele</span>
-            <Input
-              :type="'text'"
-              :value="feature.cor_pele"
+            <InputSelect
+              :type="'select'"
               :placeholder="'Cor da pele'"
+              :value="feature.cor_pele"
+              :values="colorSkin"
+              @input="onColorSkin"
             />
           </div>
           <div class="input">
             <span>Manequim</span>
-            <Input
-              :type="'text'"
+            <InputSelect
+              :type="'select'"
+              :placeholder="'Tamanho manequim'"
               :value="feature.manequim"
-              :placeholder="'M'"
+              :values="manequimOptions"
+              @input="onManequim"
             />
           </div>
           <div class="input">
@@ -190,6 +197,7 @@
               :type="'number'"
               :value="feature.altura"
               :placeholder="'1.80'"
+              @input="onHeight"
             />
           </div>
           <div class="input">
@@ -198,6 +206,7 @@
               :type="'number'"
               :value="feature.peso"
               :placeholder="'63.0'"
+              @input="onWeight"
             />
           </div>
           <div class="input">
@@ -206,6 +215,7 @@
               :type="'numupload ber'"
               :value="feature.quadril"
               :placeholder="'50'"
+              @input="onHip"
             />
           </div>
           <div class="input">
@@ -214,6 +224,7 @@
               :type="'number'"
               :value="feature.busto_torax"
               :placeholder="'63'"
+              @input="onBust"
             />
           </div>
           <div class="input">
@@ -222,6 +233,7 @@
               :type="'number'"
               :value="feature.calcado"
               :placeholder="'42'"
+              @input="onShoe"
             />
           </div>
           <div class="input">
@@ -230,6 +242,7 @@
               :type="'number'"
               :value="feature.cintura"
               :placeholder="'50'"
+              @input="onWaist"
             />
           </div>
         </div>
@@ -278,6 +291,9 @@ export default {
         { nome: "Prefiro não informar" },
       ],
       colorHair: null,
+      colorEyes: null,
+      colorSkin: null,
+      manequimOptions: null,
     };
   },
   mounted() {
@@ -288,7 +304,9 @@ export default {
     async getFeatures() {
       const response = await Model.getFeaturesForm();
       this.colorHair = response.data[0].predefinidas;
-      console.log(response.data);
+      this.colorEyes = response.data[1].predefinidas;
+      this.colorSkin = response.data[2].predefinidas;
+      this.manequimOptions = response.data[3].predefinidas;
     },
     formatDate(date) {
       const newDate = new Date(date);
@@ -310,6 +328,7 @@ export default {
         }
       }
     },
+    // Informações pessoais
     onName(value) {
       this.user.nome = value;
     },
@@ -318,7 +337,6 @@ export default {
     },
 
     onDateBirthday(value) {
-      console.log(value);
       this.user.idade = this.getAge(value);
       this.user.data_nascimento = value;
     },
@@ -340,9 +358,36 @@ export default {
       this.user.cidade = value;
     },
 
+    // Caracteristicas
     onColorHair(value) {
-      this.feature.cor_cabelo = value;
-      console.log(value);
+      this.feature.cor_cabelo = JSON.parse(value);
+    },
+    onColorEyes(value) {
+      this.feature.cor_olho = JSON.parse(value);
+    },
+    onColorSkin(value) {
+      this.feature.cor_pele = JSON.parse(value);
+    },
+    onManequim(value) {
+      this.feature.manequim = JSON.parse(value);
+    },
+    onHeight(value) {
+      this.feature.altura = JSON.parse(value);
+    },
+    onWeight(value) {
+      this.feature.peso = JSON.parse(value);
+    },
+    onHip(value) {
+      this.feature.quadril = JSON.parse(value);
+    },
+    onBust(value) {
+      this.feature.busto_torax = JSON.parse(value);
+    },
+    onShoe(value) {
+      this.feature.calcado = JSON.parse(value);
+    },
+    onWaist(value) {
+      this.feature.cintura = JSON.parse(value);
     },
 
     getAge(dateString) {
@@ -374,8 +419,25 @@ export default {
       const response = await Model.changeUser(user);
       console.log("nada", response);
     },
-    saveFeatures() {
-      console.log(this.feature);
+    async saveFeatures() {
+      const features = {
+        altura: this.feature.altura,
+        peso: this.feature.peso,
+        manequim: this.feature.manequim.id,
+        busto_torax: this.feature.busto_torax,
+        quadril: this.feature.quadril,
+        calcado: this.feature.calcado,
+        cor_olho: this.feature.cor_olho.id,
+        cor_cabelo: this.feature.cor_cabelo.id,
+        cor_pele: this.feature.cor_pele.id,
+        cintura: this.feature.cintura,
+        id_modelo: this.user.id,
+        update_at: null,
+        caracteristicas_adcionais: this.feature.caracteristicas_adcionais,
+        id: this.user.id,
+      };
+      const response = await Model.changeFeatures(features);
+      console.log(response.data);
     },
     openSection(sectionName) {
       if (sectionName === "infoUser") {

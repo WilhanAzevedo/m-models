@@ -1,37 +1,31 @@
 import api from "../config";
 export default {
-    getFeaturesModel: (id) =>
-        api({
-            method: "GET",
-            url: "/modelo/caracteristica/listarmodelo/" + id,
-
-        }),
-    changeUser: (user) =>
-        api({
-            method: "PUT",
-            url: "/user/update/modelo/dadosPessoais",
-            data: user
-
-        }),
-    handleProfileImg: (id, img) =>
-        api({
-            method: "POST",
-            url: "/user/imagemperfil/modelo/" + id,
-            data: img
-
-        }),
-    changeFeatures: (features) =>
-        api({
-            method: "PUT",
-            url: "/modelo/caracteristica/atualizar",
-            data: features
-        }),
-    getFeaturesForm: () =>
-        api({
-            method: "GET",
-            url: "/modelo/caracteristica_predefinida/buscarSeparadoPorGrupo"
-
-
-        })
-
-}
+  getFeaturesModel: (id) =>
+    api({
+      method: "GET",
+      url: "/modelo/caracteristica/listarmodelo/" + id,
+    }),
+  changeUser: (user) =>
+    api({
+      method: "PUT",
+      url: "/user/update/modelo/dadosPessoais",
+      data: user,
+    }),
+  handleProfileImg: (id, img) =>
+    api({
+      method: "POST",
+      url: "/user/imagemperfil/modelo/" + id,
+      data: img,
+    }),
+  changeFeatures: (features) =>
+    api({
+      method: "PUT",
+      url: "/modelo/caracteristica/atualizar",
+      data: features,
+    }),
+  getFeaturesForm: () =>
+    api({
+      method: "GET",
+      url: "/modelo/caracteristica_predefinida/buscarSeparadoPorGrupo",
+    }),
+};
