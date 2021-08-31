@@ -40,13 +40,13 @@
         </div>
         <div class="features-list">
           <div class="feature-item">
-            <span v-text="'Olho ' + features.cor_olho.nome"></span>
+            <span v-text="'Olho ' + features.cor_olho"></span>
           </div>
           <div class="feature-item">
             <span v-text="'Peso ' + features.peso + 'kg'"></span>
           </div>
           <div class="feature-item">
-            <span v-text="'Manequim ' + features.manequim.nome"></span>
+            <span v-text="'Manequim ' + features.manequim"></span>
           </div>
           <div class="feature-item">
             <span v-text="'Quadril ' + features.quadril"></span>
@@ -183,10 +183,12 @@ export default {
       if (user) {
         const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
-          console.log();
+          console.log(response.data.caracteristicas[0]);
           this.features = response.data.caracteristicas[0];
         }
         this.user = response.data.modelo[0];
+        console.log(this.user);
+
         this.getAlbum(this.user.id);
       }
     },

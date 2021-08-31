@@ -80,10 +80,12 @@
             </div>
             <div class="input">
               <span>Gênero</span>
+              {{ user.genero }}
               <InputSelect
                 :type="'select'"
                 :placeholder="'Gênero'"
-                :value="user.genero"
+                :value="{ nome: user.genero }"
+                :values="gender"
                 @input="onGender"
               />
             </div>
@@ -140,35 +142,45 @@
           <span>Detalhes</span>
         </div>
         <div class="form-features" v-if="feature">
-          <div class="input">
+          <!-- <div class="input">
             <span>Cor do cabelo</span>
             <Input
               :type="'text'"
-              :value="feature.cor_cabelo.nome"
+              :value="feature.cor_cabelo"
               :placeholder="'Cor do cabelo'"
+            />
+          </div> -->
+          <div class="input">
+            <span>Cor do cabelo</span>
+            <InputSelect
+              :type="'select'"
+              :placeholder="'Cor do cabelo'"
+              :value="{ nome: feature.cor_cabelo }"
+              :values="colorHair"
+              @input="onColorHair"
             />
           </div>
           <div class="input">
             <span>Cor dos olhos</span>
             <Input
               :type="'text'"
-              :value="feature.cor_olho.nome"
-              :placeholder="'Preto'"
+              :value="feature.cor_olho"
+              :placeholder="'Cor dos olhos'"
             />
           </div>
           <div class="input">
             <span>Cor da pele</span>
             <Input
               :type="'text'"
-              :value="feature.cor_pele.nome"
-              :placeholder="'Negra'"
+              :value="feature.cor_pele"
+              :placeholder="'Cor da pele'"
             />
           </div>
           <div class="input">
             <span>Manequim</span>
             <Input
               :type="'text'"
-              :value="feature.manequim.nome"
+              :value="feature.manequim"
               :placeholder="'M'"
             />
           </div>
@@ -256,12 +268,28 @@ export default {
       tab2: false,
       urlImg: null,
       changeImg: false,
+      userImg: null,
+      formFeatures: {
+        id: null,
+      },
+      gender: [
+        { nome: "Masculino" },
+        { nome: "Feminino" },
+        { nome: "Prefiro não informar" },
+      ],
+      colorHair: null,
     };
   },
   mounted() {
     this.getUser();
+    this.getFeatures();
   },
   methods: {
+    async getFeatures() {
+      const response = await Model.getFeaturesForm();
+      this.colorHair = response.data[0].predefinidas;
+      console.log(response.data);
+    },
     formatDate(date) {
       const newDate = new Date(date);
       const splittedDate = newDate.toISOString().slice(0, 10);
@@ -278,8 +306,7 @@ export default {
           this.feature = response.data.caracteristicas[0];
           this.user = response.data.modelo[0];
           this.urlImg = this.user.foto_perfil;
-
-          console.log(this.user);
+          this.formFeatures.id = response.data.modelo[0].id;
         }
       }
     },
@@ -313,6 +340,11 @@ export default {
       this.user.cidade = value;
     },
 
+    onColorHair(value) {
+      this.feature.cor_cabelo = value;
+      console.log(value);
+    },
+
     getAge(dateString) {
       var today = new Date();
       var birthDate = new Date(dateString);
@@ -339,10 +371,8 @@ export default {
         estado: this.user.estado,
         id: this.user.id,
       };
-      console.log(user);
       const response = await Model.changeUser(user);
-
-      console.log(response.data);
+      console.log("nada", response);
     },
     saveFeatures() {
       console.log(this.feature);
@@ -361,10 +391,14 @@ export default {
       const file = e.target.files[0];
       this.urlImg = URL.createObjectURL(file);
       this.changeImg = true;
-      console.log(file);
+
+      this.userImg = file;
     },
     async handleProfileImg() {
-      const response = await Model.handleProfileImg(this.user.id, this.urlImg);
+      console.log("imagemmm", this.userImg);
+      const formData = new FormData();
+      formData.append("foto_perfil", this.userImg);
+      const response = await Model.handleProfileImg(this.user.id, formData);
       console.log("a imagem foi alterada", response.data);
     },
   },
@@ -440,7 +474,7 @@ export default {
   height: 50px;
 }
 
-.edit-profile .change-photo .photo img {
+/* .edit-profile .change-photo .photo img {
   width: 137px;
   height: 137px;
   object-fit: cover;
@@ -463,7 +497,7 @@ export default {
 
 .edit-profile .button-edit img {
   width: 20px;
-}
+} */
 .edit-profile .form {
   width: 100%;
   display: flex;

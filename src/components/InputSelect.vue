@@ -5,9 +5,9 @@
       v-model="selected"
       @input="$emit('input', $event.target.value)"
     >
-      <option value="Feminino">Feminino</option>
-      <option value="Masculino">Masculino</option>
-      <option value="Prefiro não informar">Prefiro não informar</option>
+      <option v-for="(item, key) in values" :data-value="item" :key="key">
+        {{ item.nome }}
+      </option>
     </select>
   </div>
 </template>
@@ -21,7 +21,8 @@ export default {
     type: {
       type: String,
     },
-    value: [String, Number],
+    value: [String, Number, Object],
+    values: Array,
   },
   mounted() {
     this.selected = this.value;

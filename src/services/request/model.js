@@ -15,9 +15,23 @@ export default {
         }),
     handleProfileImg: (id, img) =>
         api({
-            method: "PUT",
+            method: "POST",
             url: "/user/imagemperfil/modelo/" + id,
             data: img
 
+        }),
+    changeFeatures: (features) =>
+        api({
+            method: "PUT",
+            url: "/modelo/caracteristica/atualizar",
+            data: features
+        }),
+    getFeaturesForm: () =>
+        api({
+            method: "GET",
+            url: "/modelo/caracteristica_predefinida/buscarSeparadoPorGrupo"
+
+
         })
+
 }
