@@ -5,6 +5,7 @@
       :type="type"
       :placeholder="placeholder"
       :value="value"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)"
     />
   </div>
@@ -25,6 +26,8 @@ export default {
       type: String,
     },
     value: [String, Number],
+
+    disabled: Boolean,
   },
 };
 </script>
@@ -37,7 +40,6 @@ export default {
   padding: 12px 10px;
   margin: 5px 0;
   border-radius: 0.4rem;
-  /* width: 350px; */
 }
 input {
   font-weight: 400;
