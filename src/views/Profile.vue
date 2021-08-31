@@ -183,9 +183,10 @@ export default {
       if (user) {
         const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
+          console.log();
           this.features = response.data.caracteristicas[0];
         }
-        this.user = user.modelo;
+        this.user = response.data.modelo[0];
         this.getAlbum(this.user.id);
       }
     },
