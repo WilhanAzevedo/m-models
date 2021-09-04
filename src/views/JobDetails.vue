@@ -1,48 +1,41 @@
 <template>
   <div class="job-details">
     <Menu />
-    <div class="job-header">
+    <div class="job-header" v-if="job">
       <div class="header-details">
         <div class="image">
-          <img
-            src="https://blog.revendakwg.com.br/wp-content/uploads/2017/05/fazer-uma-revista-750x410.png"
-            alt=""
-          />
+          <img :src="job.foto_servico" :alt="job.nome_servico" />
         </div>
 
         <div class="details">
           <div class="top">
             <div class="top-details">
               <div class="title">
-                <span>Editorial de revista</span>
+                <span v-text="job.nome_servico">Editorial de revista</span>
               </div>
               <div class="location">
                 <div><img src="../assets/localization.svg" alt="" /></div>
-                <div class="city"><span>Brasília</span></div>
-                <div>16/02/2021</div>
+                <div class="city">
+                  <span v-text="job.lugar_divulgacao">Brasília</span>
+                </div>
+                <div v-text="formatDate(job.data_cadastro)"></div>
               </div>
             </div>
-            <div class="close-button">
+            <div class="close-button" @click="$router.go(-1)">
               <img src="../assets/close-button.svg" alt="" />
             </div>
           </div>
           <div class="image-responsive">
-            <img
-              src="https://blog.revendakwg.com.br/wp-content/uploads/2017/05/fazer-uma-revista-750x410.png"
-              alt=""
-            />
+            <img :src="job.foto_servico" :alt="job.nome_servico" />
           </div>
           <div class="description">
-            <span
-              >Precisamos de 2 rapazes e duas meninas de 18 a 25 anos <br />
-              Por se tratar de um editorial de revista, não haverá cachê, pois
-              trata-se da divulgação dos modelos</span
-            >
+            <span v-text="job.descricao"></span>
           </div>
           <div class="button-apply">
             <Button
               :textButton="'Candidatar-se'"
               :backgroundButton="'primary'"
+              :router="setJobModel"
             />
           </div>
         </div>
@@ -54,12 +47,83 @@
 <script>
 import Menu from "../components/Menu.vue";
 import Button from "../components/Button.vue";
+import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Button },
+  mounted() {
+    this.getJob();
+  },
+  data() {
+    return {
+      job: null,
+    };
+  },
+  methods: {
+    async getJob() {
+      const response = await jobs.getJob(this.$route.params.id);
+      this.job = response.data[0];
+    },
+    formatDate(date) {
+      const newDate = new Date(date);
+      const splittedDate = newDate.toISOString().slice(0, 10);
+      return new Date(splittedDate).toLocaleString();
+    },
+    toast() {
+      this.$toast.success("I'm a toast!", {
+        position: "top-center",
+        closeOnClick: true,
+        pauseOnHover: true,
+        showCloseButtonOnHover: false,
+        hideProgressBar: true,
+        closeButton: "button",
+        icon: true,
+      });
+    },
+    async setJobModel() {
+      const user = await JSON.parse(localStorage.getItem("usuario"));
+      if (user) {
+        const data = {
+          id_modelo: user.modelo.id,
+          id_servico: this.job.id,
+        };
+        await jobs
+          .setJobModel(data)
+          .then((response) => {
+            response.data.sucesso &&
+              this.$toast.success(response.data.sucesso, {
+                position: "top-center",
+                closeOnClick: true,
+                pauseOnHover: true,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+              });
+          })
+          .catch(() => {
+            this.$toast.error(
+              "Já existe uma candidatura feita para esse serviço",
+              {
+                position: "top-center",
+                closeOnClick: true,
+                pauseOnHover: true,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+              }
+            );
+          });
+      }
+    },
+  },
 };
 </script>
 
 <style>
+.Vue-Toastification__toast-body {
+  flex: 0 !important;
+}
 .job-details {
   height: 100vh;
 }

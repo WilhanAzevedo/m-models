@@ -36,52 +36,15 @@
       </div>
       <div class="all-cards">
         <Job
-          img="https://blog.revendakwg.com.br/wp-content/uploads/2017/05/fazer-uma-revista-750x410.png"
-          title="Editorial de revista"
-          date="16/07/2021 - 00:00"
-          placeholder="Imagem ilustrativa de revista"
-          description="Precisamos de 2 rapazes e 2 moças de 18 a 25 anos..."
+          v-for="(job, index) in listJobs"
+          :key="index"
+          :img="job.foto_servico"
+          :title="job.nome_servico"
+          :date="job.data_cadastro"
+          :placeholder="job.nome_servico"
+          :description="job.descricao"
+          :id="job.id"
           :clickDetails="clickDetails"
-        />
-        <Job
-          img="https://www.quimicolla.com.br/wp-content/uploads/2020/12/Producao-de-calcados-de-ponta-a-ponta-em-Sao-Joao-Batista-pichi.jpg"
-          title="Loja de calçados"
-          date="16/07/2021 - 00:00"
-          placeholder="Imagem ilustrativa de calçados"
-          :clickDetails="clickDetails"
-          description="Precisamos de uma mulher que tenha entre 30 e 40 anos para ser modelo em uma campanha de calçados."
-        />
-        <Job
-          img="https://blog.lavillecasa.com.br/wp-content/uploads/2020/01/GettyImages-942746880-1-750x499.jpg"
-          title="Atendente em evento"
-          date="16/07/2021 - 00:00"
-          placeholder="Um homem preparando drinks"
-          :clickDetails="clickDetails"
-          description="Precisamos urgente de homens e mulheres de 18 a 30 anos de idade para trabalhar como atendente"
-        />
-        <Job
-          img="https://blog.revendakwg.com.br/wp-content/uploads/2017/05/fazer-uma-revista-750x410.png"
-          title="Editorial de revista"
-          date="16/07/2021 - 00:00"
-          placeholder="Imagem ilustrativa de revista"
-          description="Precisamos de 2 rapazes e 2 moças de 18 a 25 anos..."
-          :clickDetails="clickDetails"
-        />
-        <Job
-          img="https://www.quimicolla.com.br/wp-content/uploads/2020/12/Producao-de-calcados-de-ponta-a-ponta-em-Sao-Joao-Batista-pichi.jpg"
-          title="Loja de calçados"
-          date="16/07/2021 - 00:00"
-          placeholder="Imagem ilustrativa de calçados"
-          :clickDetails="clickDetails"
-          description="Precisamos de uma mulher que tenha entre 30 e 40 anos para ser modelo em uma campanha de calçados."
-        />
-        <Job
-          img="https://blog.lavillecasa.com.br/wp-content/uploads/2020/01/GettyImages-942746880-1-750x499.jpg"
-          title="Atendente em evento"
-          date="16/07/2021 - 00:00"
-          placeholder="Um homem preparando drinks"
-          :clickDetails="clickDetails"
-          description="Precisamos urgente de homens e mulheres de 18 a 30 anos de idade para trabalhar como atendente"
         />
       </div>
     </div>
@@ -92,11 +55,24 @@
 import Menu from "../components/Menu.vue";
 import JobRecent from "../components/JobRecent.vue";
 import Job from "../components/Job.vue";
+import jobs from "../services/request/jobs";
 export default {
   components: { Menu, JobRecent, Job },
+  mounted() {
+    this.getJobs();
+  },
+  data() {
+    return {
+      listJobs: [],
+    };
+  },
   methods: {
-    clickDetails() {
-      this.$router.push({ name: "JobDetails" });
+    clickDetails(id) {
+      this.$router.push({ name: "JobDetails", params: { id: id } });
+    },
+    async getJobs() {
+      const response = await jobs.getJobs();
+      this.listJobs = response.data;
     },
   },
 };

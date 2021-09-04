@@ -1,5 +1,5 @@
 <template>
-  <div class="job-card" @click="clickDetails">
+  <div class="job-card" @click="clickDetails(id)">
     <div class="card-image">
       <img v-if="img" :src="img" :alt="placeholder" />
     </div>
@@ -24,6 +24,7 @@ export default {
       required: false,
       default: "",
     },
+    id: Number,
     date: String,
     placeholder: String,
     description: String,
