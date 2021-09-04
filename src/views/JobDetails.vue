@@ -37,6 +37,7 @@
               :backgroundButton="'primary'"
               :router="setJobModel"
             />
+            <button @click="toast">Click</button>
           </div>
         </div>
       </div>
@@ -89,31 +90,9 @@ export default {
         await jobs
           .setJobModel(data)
           .then((response) => {
-            response.data.sucesso &&
-              this.$toast.success(response.data.sucesso, {
-                position: "top-center",
-                closeOnClick: true,
-                pauseOnHover: true,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-              });
+            console.log(response.data);
           })
-          .catch(() => {
-            this.$toast.error(
-              "Já existe uma candidatura feita para esse serviço",
-              {
-                position: "top-center",
-                closeOnClick: true,
-                pauseOnHover: true,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-              }
-            );
-          });
+          .catch(() => {});
       }
     },
   },
