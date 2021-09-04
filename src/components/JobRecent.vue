@@ -40,6 +40,7 @@ export default {
   align-items: center;
   justify-content: center;
   max-width: 150px;
+  cursor: pointer;
 }
 .job-recent .job-title {
   text-align: center;

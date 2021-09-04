@@ -293,18 +293,24 @@ export default {
 }
 .personal-information {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding-top: 40px;
 }
 .photo-circle {
-  width: 152px;
+  width: 120px;
+  height: 120px;
   margin-right: 50px;
 }
 
 .photo-circle img {
-  width: 100%;
-  clip-path: circle(39%);
+  border-radius: 100%;
+  width: inherit;
+  height: inherit;
+  border-radius: 100%;
+
+  /* width: 100%; */
+  /* clip-path: circle(40%); */
 }
 
 .description {
@@ -315,13 +321,10 @@ export default {
 .description .info-user {
   color: #404040;
 }
-.description a {
-  display: flex;
-  color: #908f8f;
-  font-size: 0.9rem;
-  width: 100%;
-  clip-path: circle(39%);
-  cursor: pointer;
+.about-description {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  word-break: break-word;
 }
 
 .bottom-info {
@@ -341,7 +344,7 @@ export default {
   width: 18px;
 }
 .about {
-  width: 80%;
+  width: 100%;
   color: #908f8f;
   margin-top: 10px;
 }
@@ -353,6 +356,7 @@ export default {
 
 .features-title {
   color: #404040;
+  padding-top: 40px;
 }
 .features-list {
   display: flex;
@@ -443,8 +447,6 @@ export default {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  /* padding: 6px 12px; */
-  /* border-top: none; */
 }
 .active-tab {
   display: block;
@@ -511,14 +513,25 @@ export default {
   }
 
   .photo-circle img {
-    width: 100%;
+    width: 80%;
     clip-path: circle(39%);
   }
   .about .about-description {
     width: 130%;
     font-size: 0.7rem;
   }
+  .description {
+    margin-right: 40px;
+  }
+  /* .info-user {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  
+  } */
   .bottom-info {
+    display: flex;
+
     font-size: 0.7rem;
   }
   .features {
