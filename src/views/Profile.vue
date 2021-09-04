@@ -40,13 +40,13 @@
         </div>
         <div class="features-list">
           <div class="feature-item">
-            <span v-text="'Olho ' + features.cor_olho"></span>
+            <span v-text="'Olho ' + features.cor_olho.nome"></span>
           </div>
           <div class="feature-item">
             <span v-text="'Peso ' + features.peso + 'kg'"></span>
           </div>
           <div class="feature-item">
-            <span v-text="'Manequim ' + features.manequim"></span>
+            <span v-text="'Manequim ' + features.manequim.nome"></span>
           </div>
           <div class="feature-item">
             <span v-text="'Quadril ' + features.quadril"></span>
@@ -82,15 +82,22 @@
         </div>
       </div>
 
+      <!-- IMAGES =========================== -->
+
       <div
         id="sectionJobs"
         :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'"
         v-if="albuns"
       >
-        <!-- IMAGES =========================== -->
-
         <div class="images-profile">
-          <div class="add-photo">
+          <div class="add-photo" @click="setImageJobs">
+            <input
+              type="file"
+              hidden
+              id="upload-jobs"
+              accept="image"
+              @change="onChange"
+            />
             <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
             <div class="add-upload">
               <span>Adicionar foto</span>
@@ -150,6 +157,36 @@
         </div>
       </div>
     </div>
+    <div class="modal-overlay">
+      <div class="modal">
+        <h2>Nova foto: Seção de Jobs</h2>
+        <div class="modal-image">
+          <img :src="imgUrl" alt="Adicionar foto" height="300" />
+        </div>
+        <div class="button-modal">
+          <a onclick="Modal.close()" href="#" class="button cancel">Cancelar</a>
+          <Button
+            :textButton="'Salvar'"
+            :backgroundButton="'primary'"
+            :router="saveUpload"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- <modal name="modal-upload" :width="300" :height="300" :adaptive="true">
+      <div class="modal">
+       
+        <div class="footer-button">
+      
+          <Button
+            :textButton="'Cancelar'"
+            :backgroundButton="'secondary'"
+            :router="saveUpload"
+          />
+        </div>
+      </div>
+    </modal> -->
   </div>
 </template>
 
@@ -157,9 +194,11 @@
 import Menu from "../components/Menu.vue";
 import Model from "../services/request/model";
 import Jobs from "../services/request/jobs";
+import Button from "../components/Button.vue";
 export default {
   components: {
     Menu,
+    Button,
   },
   mounted() {
     this.getUser();
@@ -172,9 +211,31 @@ export default {
       tab1: true,
       tab2: false,
       tab3: false,
+      imgUrl: null,
+      img: null,
     };
   },
   methods: {
+    open() {
+      //  Abrir modal
+      // Adicionar a class active ao modal
+      document.querySelector(".modal-overlay").classList.add("active");
+    },
+    close() {
+      //  fechar o modal
+      // remover a class active do modal
+      document.querySelector(".modal-overlay").classList.remove("active");
+    },
+    saveUpload() {},
+
+    onChange(e) {
+      this.imgUrl = URL.createObjectURL(e.target.files[0]);
+      this.img = e.target.files[0];
+      this.open();
+    },
+    setImageJobs() {
+      document.getElementById("upload-jobs").click();
+    },
     async getUser() {
       const user = await JSON.parse(localStorage.getItem("usuario"));
       if (!user) {
@@ -387,6 +448,54 @@ export default {
 }
 .active-tab {
   display: block;
+}
+
+/* MODAL UPLOAD ================================= */
+.modal-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal {
+  background: #f0f2f5;
+  padding: 2.4rem;
+  position: relative;
+  width: 50%;
+}
+.modal-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-modal {
+  width: 25%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-modal a {
+  padding: 1rem 4rem;
+  font-size: 1rem;
+  border-radius: 0.2rem;
+  margin: 5px 0px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: transparent;
+  color: black;
 }
 
 /* RESPONSIVE ================================= */

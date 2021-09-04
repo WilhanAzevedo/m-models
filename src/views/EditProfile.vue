@@ -136,20 +136,13 @@
             :type="'text'"
             :placeholder="'Irracionais nas horas vagas'"
             :value="feature.caracteristicas_adcionais"
+            @input="onAbout"
           />
         </div>
         <div class="info-title">
           <span>Detalhes</span>
         </div>
         <div class="form-features" v-if="feature">
-          <!-- <div class="input">
-            <span>Cor do cabelo</span>
-            <Input
-              :type="'text'"
-              :value="feature.cor_cabelo"
-              :placeholder="'Cor do cabelo'"
-            />
-          </div> -->
           <div class="input">
             <span>Cor do cabelo</span>
             <InputSelect
@@ -196,7 +189,7 @@
             <Input
               :type="'number'"
               :value="feature.altura"
-              :placeholder="'1.80'"
+              :placeholder="'Altura'"
               @input="onHeight"
             />
           </div>
@@ -205,7 +198,7 @@
             <Input
               :type="'number'"
               :value="feature.peso"
-              :placeholder="'63.0'"
+              :placeholder="'Peso'"
               @input="onWeight"
             />
           </div>
@@ -214,7 +207,7 @@
             <Input
               :type="'numupload ber'"
               :value="feature.quadril"
-              :placeholder="'50'"
+              :placeholder="'Quadril'"
               @input="onHip"
             />
           </div>
@@ -223,7 +216,7 @@
             <Input
               :type="'number'"
               :value="feature.busto_torax"
-              :placeholder="'63'"
+              :placeholder="'Busto torax'"
               @input="onBust"
             />
           </div>
@@ -232,7 +225,7 @@
             <Input
               :type="'number'"
               :value="feature.calcado"
-              :placeholder="'42'"
+              :placeholder="'Calçado'"
               @input="onShoe"
             />
           </div>
@@ -241,7 +234,7 @@
             <Input
               :type="'number'"
               :value="feature.cintura"
-              :placeholder="'50'"
+              :placeholder="'Cintura'"
               @input="onWaist"
             />
           </div>
@@ -359,6 +352,10 @@ export default {
     },
 
     // Caracteristicas
+
+    onAbout(value) {
+      this.feature.caracteristicas_adcionais = value;
+    },
     onColorHair(value) {
       this.feature.cor_cabelo = JSON.parse(value);
     },
