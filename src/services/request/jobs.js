@@ -10,10 +10,20 @@ export default {
       method: "GET",
       url: "/servicos/listar",
     }),
+  getJobsRecents: () =>
+    api({
+      method: "GET",
+      url: "/servicos/listar/servicosnovos/",
+    }),
   getJob: (id) =>
     api({
       method: "GET",
       url: "/servicos/listarporid/" + id,
+    }),
+  getJobUser: (id) =>
+    api({
+      method: "GET",
+      url: "/user/listarporid/modeloservico/" + id,
     }),
   setJobModel: (data) =>
     api({
