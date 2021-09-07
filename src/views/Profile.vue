@@ -156,7 +156,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay" v-if="albumSelected">
+    <div class="modal-overlay">
       <div class="modal">
         <span class="modal-title">Nova foto: {{ albumSelected.name }}</span>
         <div class="modal-image">
@@ -198,13 +198,15 @@ export default {
       tab3: false,
       imgUrl: null,
       img: null,
-      albumSelected: null,
+      albumSelected: { name: "Seção de Jobs", id: 1 },
+      notify: null,
     };
   },
   methods: {
     open() {
       //  Abrir modal
       // Adicionar a class active ao modal
+      document.querySelector(".modal-overlay").classList.add("active");
       document.querySelector(".modal-overlay").classList.add("active");
     },
     close() {
@@ -222,6 +224,10 @@ export default {
       const response = await Model.uploadImageAlbum(data);
       if (response.data) {
         this.getAlbum(this.user.id);
+        this.$vToastify.success({
+          body: "Foto adicionada com sucesso",
+          title: "Tudo certo!",
+        });
         this.close();
       }
     },

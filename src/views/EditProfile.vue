@@ -414,7 +414,12 @@ export default {
         id: this.user.id,
       };
       const response = await Model.changeUser(user);
-      console.log("nada", response);
+      if (response.data) {
+        this.$vToastify.success({
+          body: "Alterado com sucesso",
+          title: "Tudo certo!",
+        });
+      }
     },
     async saveFeatures() {
       const features = {
@@ -434,7 +439,12 @@ export default {
         id: this.user.id,
       };
       const response = await Model.changeFeatures(features);
-      console.log(response.data);
+      if (response.data) {
+        this.$vToastify.success({
+          body: "Alterado com sucesso",
+          title: "Tudo certo!",
+        });
+      }
     },
     openSection(sectionName) {
       if (sectionName === "infoUser") {

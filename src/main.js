@@ -4,6 +4,8 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import VModal from "vue-js-modal";
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
 Vue.use(VModal);
 
 Vue.config.productionTip = false;
