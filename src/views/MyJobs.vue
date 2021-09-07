@@ -45,7 +45,6 @@ export default {
       if (user) {
         const response = await jobs.getJobUser(user.modelo.id);
         this.myJobsList = response.data[0].servicos;
-        console.log(response.data);
       }
     },
   },

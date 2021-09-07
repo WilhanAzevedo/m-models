@@ -5,4 +5,9 @@ export default {
       method: "GET",
       url: "/modelo/album/listarmodeloalbuns/" + id,
     }),
+  getJobUser: (id) =>
+    api({
+      method: "GET",
+      url: "/user/listarporid/modeloservico/" + id,
+    }),
 };
