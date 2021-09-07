@@ -1,9 +1,9 @@
 import api from "../config";
 export default {
-    login: (user) =>
-        api({
-            method: "POST",
-            url: "/login",
-            data: user,
-        })
-}
+  login: (user) =>
+    api({
+      method: "POST",
+      url: "/login",
+      data: user,
+    }),
+};

@@ -1,7 +1,6 @@
 <template>
   <div class="app-profile">
     <Menu />
-
     <div class="profile">
       <div class="personal-information" v-if="user">
         <div class="description">
@@ -90,7 +89,10 @@
         v-if="albuns"
       >
         <div class="images-profile">
-          <div class="add-photo" @click="setImageJobs">
+          <div
+            class="add-photo"
+            @click="setImageJobs({ name: 'Seção de Jobs', id: 1 })"
+          >
             <input
               type="file"
               hidden
@@ -157,14 +159,14 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay">
+    <div class="modal-overlay" v-if="albumSelected">
       <div class="modal">
-        <h2>Nova foto: Seção de Jobs</h2>
+        <span class="modal-title">Nova foto: {{ albumSelected.name }}</span>
         <div class="modal-image">
           <img :src="imgUrl" alt="Adicionar foto" height="300" />
         </div>
         <div class="button-modal">
-          <a onclick="Modal.close()" href="#" class="button cancel">Cancelar</a>
+          <a @click="close()" href="#" class="button cancel">Cancelar</a>
           <Button
             :textButton="'Salvar'"
             :backgroundButton="'primary'"
@@ -174,15 +176,15 @@
       </div>
     </div>
 
-    <!-- <modal name="modal-upload" :width="300" :height="300" :adaptive="true">
-      <div class="modal">
+    <!-- <modal name='modal-upload' :width='300' :height='300' :adaptive='true'>
+      <div class='modal'>
        
-        <div class="footer-button">
+        <div class='footer-button'>
       
           <Button
-            :textButton="'Cancelar'"
-            :backgroundButton="'secondary'"
-            :router="saveUpload"
+            :textButton=''Cancelar''
+            :backgroundButton=''secondary''
+            :router='saveUpload'
           />
         </div>
       </div>
@@ -213,6 +215,7 @@ export default {
       tab3: false,
       imgUrl: null,
       img: null,
+      albumSelected: null,
     };
   },
   methods: {
@@ -225,18 +228,31 @@ export default {
       //  fechar o modal
       // remover a class active do modal
       document.querySelector(".modal-overlay").classList.remove("active");
+      this.imgUrl = null;
+      this.img = null;
     },
-    saveUpload() {},
-
+    async saveUpload() {
+      const data = new FormData();
+      data.append("url", this.img);
+      data.append("id_modelo", this.user.id);
+      data.append("id_tipoalbum", this.albumSelected.id);
+      const response = await Model.uploadImageAlbum(data);
+      if (response.data) {
+        this.getAlbum(this.user.id);
+        this.close();
+      }
+    },
     onChange(e) {
       this.imgUrl = URL.createObjectURL(e.target.files[0]);
       this.img = e.target.files[0];
       this.open();
     },
-    setImageJobs() {
+    setImageJobs(album) {
+      this.albumSelected = album;
       document.getElementById("upload-jobs").click();
     },
     async getUser() {
+      console.log("aqui");
       const user = await JSON.parse(localStorage.getItem("usuario"));
       if (!user) {
         this.$router.replace({ name: "login" });
@@ -248,8 +264,6 @@ export default {
           this.features = response.data.caracteristicas[0];
         }
         this.user = response.data.modelo[0];
-        console.log(this.user);
-
         this.getAlbum(this.user.id);
       }
     },
@@ -274,8 +288,6 @@ export default {
         this.tab2 = false;
         this.tab3 = true;
       }
-
-      console.log(sectionName);
     },
   },
 };
@@ -470,18 +482,27 @@ export default {
 }
 .modal {
   background: #f0f2f5;
-  padding: 2.4rem;
+  padding: 2.5rem;
   position: relative;
-  width: 50%;
+}
+.modal .modal-title {
+  font-size: 0.875rem;
+  padding: 1rem 0;
 }
 .modal-image {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.modal-image img {
+  margin: 16px 0px;
+
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
 .button-modal {
-  width: 25%;
-  height: 50px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/session/Login.vue"
+import Login from "../views/session/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -33,49 +33,48 @@ const routes = [
   {
     path: "/criar-conta-modelo",
     name: "RegisterModel",
-    component: () => import("../views/session/RegisterModel.vue")
+    component: () => import("../views/session/RegisterModel.vue"),
   },
   {
     path: "/localizacao",
     name: "Localization",
-    component: () => import("../views/session/Localization.vue")
+    component: () => import("../views/session/Localization.vue"),
   },
   {
     path: "/criar-conta-contratante",
     name: "RegisterContractor",
-    component: () => import("../views/session/RegisterContractor.vue")
+    component: () => import("../views/session/RegisterContractor.vue"),
   },
   {
     path: "/dados-empresariais",
     name: "CompanyInformation",
-    component: () => import("../views/session/CompanyInformation.vue")
+    component: () => import("../views/session/CompanyInformation.vue"),
   },
   {
     path: "/perfil",
     name: "profile",
-    component: () => import("../views/Profile.vue")
+    component: () => import("../views/Profile.vue"),
   },
   {
     path: "/editar-perfil",
     name: "EditProfile",
-    component: () => import("../views/EditProfile.vue")
+    component: () => import("../views/EditProfile.vue"),
   },
   {
     path: "/jobs",
     name: "jobs",
-    component: () => import("../views/Jobs.vue")
+    component: () => import("../views/Jobs.vue"),
   },
   {
     path: "/detalhes-do-trabalho",
     name: "JobDetails",
-    component: () => import("../views/JobDetails.vue")
-
+    component: () => import("../views/JobDetails.vue"),
   },
   {
     path: "/meus-jobs",
     name: "MyJobs",
-    component: () => import("../views/MyJobs.vue")
-  }
+    component: () => import("../views/MyJobs.vue"),
+  },
 ];
 
 const router = new VueRouter({

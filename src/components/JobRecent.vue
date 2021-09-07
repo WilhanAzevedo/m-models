@@ -35,17 +35,18 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-right: 20px;
 }
 .job-recent .job-title {
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
   width: 90%;
   color: #908f8f;
 }
 
 .job-recent img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 0.8rem;
   cursor: pointer;

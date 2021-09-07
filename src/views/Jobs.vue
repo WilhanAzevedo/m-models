@@ -3,7 +3,7 @@
     <Menu />
     <div class="list-jobs">
       <div class="list-title">
-        <span>Ultimos serviços</span>
+        <span>Últimos serviços</span>
       </div>
       <div class="list-jobs-recents">
         <JobRecent
@@ -113,8 +113,8 @@ export default {
 }
 .jobs .list-title {
   margin-bottom: 1rem;
-  font-size: 1rem;
-  color: #404040;
+  font-size: 1.8rem;
+  color: black;
 }
 
 .jobs .list-jobs-recents {

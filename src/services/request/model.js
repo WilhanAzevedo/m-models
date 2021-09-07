@@ -17,6 +17,12 @@ export default {
       url: "/user/imagemperfil/modelo/" + id,
       data: img,
     }),
+  uploadImageAlbum: (data) =>
+    api({
+      method: "POST",
+      url: "/user/uploadimage/modelo",
+      data: data,
+    }),
   changeFeatures: (features) =>
     api({
       method: "PUT",
