@@ -89,10 +89,7 @@
         v-if="albuns"
       >
         <div class="images-profile">
-          <div
-            class="add-photo"
-            @click="setImageJobs({ name: 'Seção de Jobs', id: 1 })"
-          >
+          <div class="add-photo" @click="setImageJobs()">
             <input
               type="file"
               hidden
@@ -120,7 +117,7 @@
         :class="tab2 ? 'tabcontent active-tab' : 'tabcontent'"
         v-if="albuns"
       >
-        <div class="images-profile">
+        <div class="images-profile" @click="setImageJobs()">
           <div class="add-photo">
             <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
             <div class="add-upload">
@@ -143,7 +140,7 @@
         v-if="albuns"
       >
         <div class="images-profile">
-          <div class="add-photo">
+          <div class="add-photo" @click="setImageJobs()">
             <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
             <div class="add-upload">
               <span>Adicionar foto</span>
@@ -175,20 +172,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <modal name='modal-upload' :width='300' :height='300' :adaptive='true'>
-      <div class='modal'>
-       
-        <div class='footer-button'>
-      
-          <Button
-            :textButton=''Cancelar''
-            :backgroundButton=''secondary''
-            :router='saveUpload'
-          />
-        </div>
-      </div>
-    </modal> -->
   </div>
 </template>
 
@@ -247,12 +230,10 @@ export default {
       this.img = e.target.files[0];
       this.open();
     },
-    setImageJobs(album) {
-      this.albumSelected = album;
+    async setImageJobs() {
       document.getElementById("upload-jobs").click();
     },
     async getUser() {
-      console.log("aqui");
       const user = await JSON.parse(localStorage.getItem("usuario"));
       if (!user) {
         this.$router.replace({ name: "login" });
@@ -260,7 +241,6 @@ export default {
       if (user) {
         const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
-          console.log(response.data.caracteristicas[0]);
           this.features = response.data.caracteristicas[0];
         }
         this.user = response.data.modelo[0];
@@ -277,16 +257,19 @@ export default {
         this.tab1 = true;
         this.tab2 = false;
         this.tab3 = false;
+        this.albumSelected = { name: "Seção de Jobs", id: 1 };
       }
       if (sectionName === "polaroids") {
         this.tab1 = false;
         this.tab2 = true;
         this.tab3 = false;
+        this.albumSelected = { name: "Seção de Polaroids", id: 2 };
       }
       if (sectionName === "books") {
         this.tab1 = false;
         this.tab2 = false;
         this.tab3 = true;
+        this.albumSelected = { name: "Seção de Books", id: 3 };
       }
     },
   },
