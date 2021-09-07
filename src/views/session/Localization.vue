@@ -5,8 +5,18 @@
       <p>E por ultimo precisamos que forneça sua localização</p>
     </div>
     <div class="form">
-      <Input :type="'text'" :placeholder="'Cidade'" :img="'localization.svg'" />
-      <Input :type="'text'" :placeholder="'Estado'" :img="'localization.svg'" />
+      <Input
+        :type="'text'"
+        :placeholder="'Cidade'"
+        :img="'localization.svg'"
+        @input="onCity"
+      />
+      <Input
+        :type="'text'"
+        :placeholder="'Estado'"
+        :img="'localization.svg'"
+        @input="onState"
+      />
       <Button
         :textButton="'Finalizar cadastro'"
         :backgroundButton="'primary'"
@@ -24,7 +34,20 @@ export default {
     Input,
     Button,
   },
+  data() {
+    return {
+      estado: null,
+      cidade: null,
+    };
+  },
   methods: {
+    onState(value) {
+      this.user.estado = value;
+    },
+
+    onCity(value) {
+      this.user.cidade = value;
+    },
     router() {
       this.$router.push({ name: "login" });
     },
@@ -40,7 +63,6 @@ export default {
   flex-direction: column;
   text-align: center;
   height: 100vh;
-  /* background: red; */
   width: 350px;
   margin: 0 auto;
 }
