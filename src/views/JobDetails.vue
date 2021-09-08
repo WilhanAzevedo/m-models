@@ -100,9 +100,6 @@ export default {
 </script>
 
 <style>
-.Vue-Toastification__toast-body {
-  flex: 0 !important;
-}
 .job-details {
   height: 100vh;
 }

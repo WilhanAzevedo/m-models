@@ -68,7 +68,6 @@ export default {
     async getJobsRecents() {
       const response = await jobs.getJobsRecents();
       this.jobsRecentsList = response.data;
-      console.log(response.data);
     },
   },
 };

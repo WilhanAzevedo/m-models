@@ -2,62 +2,12 @@
   <div class="app-profile">
     <Menu />
     <div class="profile">
-      <div class="personal-information" v-if="user">
-        <div class="description">
-          <div class="photo-circle">
-            <img :src="user.foto_perfil" alt="Perfil" />
-          </div>
-          <div class="info-user">
-            <span v-text="user.nome + ' ' + user.sobre_nome"></span>
-            <div class="bottom-info">
-              <div class="age" v-text="user.idade + 'y'"></div>
-              <div class="location">
-                <img src="../assets/localization.svg" alt="Localização" />
-                <span v-text="user.cidade + ', ' + user.estado"></span>
-              </div>
-            </div>
-            <div class="about">
-              <span class="about-title">Sobre mim:</span>
-              <div class="about-description">
-                <span v-text="features.caracteristicas_adcionais">
-                  Junte-se a nós para um lançamento especial do Nubank, em nosso
-                  canal no Youtube
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <router-link :to="{ name: 'EditProfile' }" class="edit">
-          <span> Editar </span>
-          <img src="../assets/edit.svg" alt="Editar" />
-        </router-link>
-      </div>
+      <HeaderProfile
+        :user="user"
+        :caracteristicas_adcionais="features.caracteristicas_adcionais"
+      />
       <!-- CARACTERISTICAS ===================== -->
-      <div class="features" v-if="features">
-        <div class="features-title">
-          <span>Caracteristicas</span>
-        </div>
-        <div class="features-list">
-          <div class="feature-item">
-            <span v-text="'Olho ' + features.cor_olho.nome"></span>
-          </div>
-          <div class="feature-item">
-            <span v-text="'Peso ' + features.peso + 'kg'"></span>
-          </div>
-          <div class="feature-item">
-            <span v-text="'Manequim ' + features.manequim.nome"></span>
-          </div>
-          <div class="feature-item">
-            <span v-text="'Quadril ' + features.quadril"></span>
-          </div>
-          <div class="feature-item">
-            <span v-text="'Altura ' + features.altura">Altura 1.80</span>
-          </div>
-          <div class="feature-item" v-text="'Calçado ' + features.calcado">
-            <span>Calçado 42</span>
-          </div>
-        </div>
-      </div>
+      <Features :features="features" />
       <!-- TAB ======================== -->
 
       <div class="tab">
@@ -180,10 +130,14 @@ import Menu from "../components/Menu.vue";
 import Model from "../services/request/model";
 import Jobs from "../services/request/jobs";
 import Button from "../components/Button.vue";
+import HeaderProfile from "../components/HeaderProfile.vue";
+import Features from "../components/Features.vue";
 export default {
   components: {
     Menu,
     Button,
+    HeaderProfile,
+    Features,
   },
   mounted() {
     this.getUser();
@@ -291,89 +245,6 @@ export default {
 .profile {
   width: 75%;
   margin: 0 auto;
-}
-.personal-information {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding-top: 40px;
-}
-.photo-circle {
-  width: 120px;
-  height: 120px;
-  margin-right: 50px;
-}
-
-.photo-circle img {
-  border-radius: 100%;
-  width: inherit;
-  height: inherit;
-  border-radius: 100%;
-
-  /* width: 100%; */
-  /* clip-path: circle(40%); */
-}
-
-.description {
-  display: flex;
-  align-items: flex-start;
-}
-
-.description .info-user {
-  color: #404040;
-}
-.about-description {
-  overflow-wrap: break-word;
-  hyphens: auto;
-  word-break: break-word;
-}
-
-.bottom-info {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: #908f8f;
-}
-.bottom-info .location {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  width: 100%;
-}
-
-.bottom-info .location img {
-  width: 18px;
-}
-.about {
-  width: 100%;
-  color: #908f8f;
-  margin-top: 10px;
-}
-.about-title {
-  color: #404040;
-}
-
-/* Caracteristicas ============================= */
-
-.features-title {
-  color: #404040;
-  padding-top: 40px;
-}
-.features-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-.features .feature-item {
-  background: #e5e5e5;
-  border-radius: 23.1374px;
-  width: 15%;
-  text-align: center;
-  padding: 5px 7px;
-  font-size: 0.875rem;
-  color: #908f8f;
-  margin-right: 10px;
-  margin-top: 10px;
 }
 
 /* IMAGENS =================================== */
@@ -512,50 +383,13 @@ export default {
 
 /* RESPONSIVE ================================= */
 @media (max-width: 468px) {
-  .personal-information,
+  .profile .section {
+    width: 100%;
+    font-size: 0.8rem;
+  }
   .profile {
     width: 100%;
-    padding: 0 15px;
-  }
-  .photo-circle {
-    width: 200px;
-    margin-right: 10px;
-  }
-
-  .photo-circle img {
-    width: 80%;
-    clip-path: circle(39%);
-  }
-  .about .about-description {
-    width: 130%;
-    font-size: 0.7rem;
-  }
-  .description {
-    margin-right: 40px;
-  }
-  /* .info-user {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  
-  } */
-  .bottom-info {
-    display: flex;
-
-    font-size: 0.7rem;
-  }
-  .features {
-    width: 100%;
-    padding: 0 15px;
-    font-size: 0.875rem;
-  }
-  .features .feature-item {
-    width: 30%;
-    font-size: 0.8rem;
-  }
-  .profile .section {
-    width: 88%;
-    font-size: 0.8rem;
+    margin: 0 auto;
   }
   .images-profile {
     width: 100%;
@@ -568,31 +402,82 @@ export default {
     width: 100% !important;
   }
   .images-profile .picture-profile img {
-    width: 100% !important;
+    width: 95% !important;
     height: 400px;
+  }
+  .modal-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .modal {
+    background: #f0f2f5;
+    padding: 2.5rem;
+    position: relative;
+    height: 70vh;
+  }
+  .modal .modal-title {
+    font-size: 0.875rem;
+    padding: 1rem 0;
+  }
+  .modal-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-image img {
+    margin: 16px 0px;
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+  }
+  .button-modal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .button-modal a {
+    padding: 1rem 4rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+    margin: 5px 0px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: transparent;
+    color: black;
+  }
+  .images-profile .add-photo {
+    width: 100%;
+    height: 307px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s ease-in-out;
+  }
+  .images-profile .add-photo:hover {
+    background: #e5e5e5;
+    width: 100%;
   }
 }
 
 @media (max-width: 936px) {
-  .personal-information {
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-  .description {
-    font-size: 0.8rem;
-    margin-top: 20px;
-  }
-  .about {
-    width: 100%;
-    color: #908f8f;
-    margin-top: 10px;
-    font-size: 0.8rem;
-  }
-  .features .feature-item {
-    width: 30%;
-  }
   .images-profile .picture-profile {
     width: 50%;
   }

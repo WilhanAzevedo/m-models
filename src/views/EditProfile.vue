@@ -7,7 +7,7 @@
           :class="tab1 ? 'tab-active' : 'tab-off'"
           @click="openSection('infoUser')"
         >
-          <span>Informações pessoais</span>
+          <span>Usúario</span>
         </div>
         <div
           :class="tab2 ? 'tab-active' : 'tab-off'"
@@ -18,27 +18,23 @@
         </div>
       </div>
       <div id="infoUser" :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'">
-        <div class="info-personal">
-          <div class="change-photo">
-            <!-- <div class="photo">
-              <img src="../assets/img-contractor.jpg" alt="Alterar foto" />
-            </div> -->
-
-            <div class="personal-image">
-              <label class="label">
-                <input type="file" @change="onFileChange" />
-                <figure class="personal-figure">
-                  <img :src="urlImg" class="personal-avatar" alt="avatar" />
-                  <figcaption class="personal-figcaption">
-                    <img
-                      src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"
-                    />
-                  </figcaption>
-                </figure>
-              </label>
-            </div>
-            <!-- ========================= -->
+        <div class="change-photo">
+          <div class="personal-image">
+            <label class="label">
+              <input type="file" @change="onFileChange" />
+              <figure class="personal-figure">
+                <img :src="urlImg" class="personal-avatar" alt="avatar" />
+                <figcaption class="personal-figcaption">
+                  <img
+                    src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"
+                  />
+                </figcaption>
+              </figure>
+            </label>
           </div>
+          <!-- ========================= -->
+        </div>
+        <div class="info-personal">
           <div class="form" v-if="user">
             <div class="input">
               <span>Nome</span>
@@ -505,13 +501,17 @@ export default {
 }
 .personal-figure {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
+}
+.personal-figure img {
+  position: relative;
+  object-fit: cover;
 }
 .personal-avatar {
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   box-sizing: border-box;
   border-radius: 100%;
   border: 2px solid transparent;
@@ -531,16 +531,21 @@ export default {
   opacity: 0;
   background-color: rgba(0, 0, 0, 0);
   transition: all ease-in-out 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .personal-figcaption:hover {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .personal-figcaption > img {
-  margin-top: 32.5px;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
 }
 
 /* .edit-profile .change-photo .photo img {
@@ -652,14 +657,15 @@ export default {
 
 @media (max-width: 468px) {
   .edit-profile .edit-infos {
-    width: 90%;
+    width: 95%;
+    height: 100%;
   }
 
   .edit-profile .info-personal {
     display: block;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 95%;
   }
   .edit-profile .change-photo {
     display: flex;
@@ -694,6 +700,35 @@ export default {
   .edit-profile .button-save {
     width: 100%;
     display: block;
+  }
+  .edit-profile .tab {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    color: #404040;
+    margin-bottom: 10px;
+  }
+  .tab-active,
+  .tab-off {
+    cursor: pointer;
+    width: 50%;
+    margin-right: 8px;
+  }
+  .tab-active {
+    font-weight: 500;
+    padding: 10px 0;
+    font-size: 1rem;
+
+    color: rgb(7, 6, 6);
+    border-bottom: 1px solid rgb(7, 6, 6);
+    transition: all 0.4s ease-in-out;
+  }
+  .tab-off {
+    padding: 10px 0;
+    font-size: 1rem;
+    color: #908f8f;
+    border-bottom: 1px solid #908f8f;
   }
 }
 </style>

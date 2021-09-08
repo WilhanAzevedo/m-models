@@ -184,9 +184,9 @@ export default {
     visibility: hidden;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   .menu .header {
-    width: 100%;
+    width: 90%;
     padding: 0 15px;
   }
   .overlay a {
