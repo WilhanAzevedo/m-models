@@ -20,7 +20,7 @@
       <Button
         :textButton="'Finalizar cadastro'"
         :backgroundButton="'primary'"
-        :router="router"
+        :router="save"
       />
     </div>
   </div>
@@ -29,6 +29,7 @@
 <script>
 import Input from "../../components/Input.vue";
 import Button from "../../components/Button.vue";
+import model from "../../services/request/model";
 export default {
   components: {
     Input,
@@ -40,16 +41,60 @@ export default {
       cidade: null,
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.userRegister;
+    },
+  },
   methods: {
+    validForm() {
+      if (this.estado && this.cidade) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     onState(value) {
-      this.user.estado = value;
+      this.estado = value;
     },
-
     onCity(value) {
-      this.user.cidade = value;
+      this.cidade = value;
     },
-    router() {
-      this.$router.push({ name: "login" });
+    async save() {
+      if (this.validForm()) {
+        const user = {
+          email: this.user?.email,
+          senha: this.user?.senha,
+          tipo: "1",
+          nome: this.user?.nome,
+          sobre_nome: this.user?.sobre_nome,
+          idade: this.user?.idade,
+          data_nascimento: this.user?.data_nascimento,
+          genero: this.user?.genero
+            ? JSON.parse(this.user.genero).nome
+            : "Outro",
+          cidade: this.cidade,
+          estado: this.estado,
+          numero_whats: this.user?.numero_whats,
+        };
+        console.log(user);
+        await model
+          .saveUser(user)
+          .then(() => {
+            this.$vToastify.success({
+              body: "Agora é fazer o login",
+              title: "Cadastrado com sucesso",
+            });
+          })
+          .catch((err) => {
+            this.$vToastify.error({
+              body: err.response.data.error,
+              title: "Erro",
+            });
+          });
+      }
+
+      // this.$router.push({ name: "login" });
     },
   },
 };

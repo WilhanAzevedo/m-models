@@ -16,10 +16,7 @@
         <div class="about">
           <span class="about-title">Sobre mim:</span>
           <div class="about-description">
-            <span v-text="caracteristicas_adcionais">
-              Junte-se a nós para um lançamento especial do Nubank, em nosso
-              canal no Youtube
-            </span>
+            <span v-text="caracteristicas_adcionais"> </span>
           </div>
         </div>
       </div>
@@ -144,10 +141,9 @@ export default {
     flex-direction: column;
   }
   .bottom-info {
-    display: flex;
+    max-width: 120px;
+    margin: 0 auto;
     font-size: 0.8rem;
-    justify-content: center;
-    align-items: center;
   }
   .edit {
     text-align: center;

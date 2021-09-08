@@ -5,8 +5,8 @@
       <div class="list-title">
         <span>Últimos serviços</span>
       </div>
-      <div class="list-jobs-recents">
-        <div v-for="(job, index) in jobsRecentsList" :key="index">
+      <hooper :settings="hooperSettings" style="height: 240px">
+        <slide v-for="(job, index) in jobsRecentsList" :key="index">
           <JobRecent
             :img="job.foto_servico"
             :title="job.nome_servico"
@@ -14,9 +14,8 @@
             :placeholder="job.nome_servico"
             :id="job.id"
             :clickDetails="clickDetails"
-          />
-        </div>
-      </div>
+        /></slide>
+      </hooper>
     </div>
     <!-- ALL JOBS ============================================-->
     <div class="all-jobs">
@@ -45,8 +44,10 @@ import Menu from "../components/Menu.vue";
 import JobRecent from "../components/JobRecent.vue";
 import Job from "../components/Job.vue";
 import jobs from "../services/request/jobs";
+import { Hooper, Slide } from "hooper";
+import "hooper/dist/hooper.css";
 export default {
-  components: { Menu, JobRecent, Job },
+  components: { Menu, JobRecent, Job, Hooper, Slide },
   mounted() {
     this.getJobs();
     this.getJobsRecents();
@@ -55,6 +56,31 @@ export default {
     return {
       listJobs: [],
       jobsRecentsList: [],
+      hooperSettings: {
+        itemsToShow: 2,
+        centerMode: false,
+        breakpoints: {
+          400: {
+            centerMode: false,
+            itemsToShow: 2,
+            pagination: "fraction",
+          },
+          620: {
+            centerMode: false,
+            itemsToShow: 2,
+            pagination: "fraction",
+          },
+          800: {
+            centerMode: false,
+            itemsToShow: 3,
+            pagination: "fraction",
+          },
+          1000: {
+            itemsToShow: 4,
+            pagination: "fraction",
+          },
+        },
+      },
     };
   },
   methods: {

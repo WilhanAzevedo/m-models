@@ -35,7 +35,7 @@
         @input="onAge"
       />
       <Input
-        :type="'number'"
+        :type="'tel'"
         :placeholder="'Telefone'"
         :img="'call.svg'"
         @input="onWhats"
@@ -48,10 +48,22 @@
         :values="gender"
         @input="onGender"
       />
+      <Input
+        :type="'email'"
+        :placeholder="'E-mail'"
+        :img="'call.svg'"
+        @input="onEmail"
+      />
+      <Input
+        :type="'password'"
+        :placeholder="'Senha'"
+        :img="'call.svg'"
+        @input="onPass"
+      />
       <Button
         :textButton="'Avançar'"
         :backgroundButton="'primary'"
-        :router="router"
+        :router="save"
       />
     </div>
   </div>
@@ -73,6 +85,8 @@ export default {
       user: {
         nome: null,
         sobre_nome: null,
+        email: null,
+        senha: null,
         data_nascimento: new Date(),
         idade: null,
         numero_whats: null,
@@ -87,6 +101,33 @@ export default {
     };
   },
   methods: {
+    validForm() {
+      if (this.user) {
+        if (
+          this.user.nome &&
+          this.user.sobre_nome &&
+          this.user.email &&
+          this.user.senha &&
+          this.user.data_nascimento &&
+          this.user.genero &&
+          this.user.numero_whats &&
+          this.user.idade
+        ) {
+          return true;
+        } else false;
+      }
+    },
+    save() {
+      if (this.validForm()) {
+        this.$store.commit("setUserRegister", this.user);
+        this.$router.push({ name: "Localization" });
+      } else {
+        this.$vToastify.error({
+          body: "Preencha todos os campos",
+          title: "Erro",
+        });
+      }
+    },
     onGender(value) {
       this.user.genero = value;
     },
@@ -120,6 +161,12 @@ export default {
     },
     onName(value) {
       this.user.nome = value;
+    },
+    onEmail(value) {
+      this.user.email = value;
+    },
+    onPass(value) {
+      this.user.senha = value;
     },
     router() {
       this.$router.push({ name: "Localization" });

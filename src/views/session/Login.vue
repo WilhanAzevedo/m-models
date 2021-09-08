@@ -61,6 +61,7 @@ export default {
       error: false,
     };
   },
+
   methods: {
     createAccount() {
       this.$router.push({ name: "CreateAccount" });

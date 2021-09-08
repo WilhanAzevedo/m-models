@@ -67,8 +67,8 @@
         :class="tab2 ? 'tabcontent active-tab' : 'tabcontent'"
         v-if="albuns"
       >
-        <div class="images-profile" @click="setImageJobs()">
-          <div class="add-photo">
+        <div class="images-profile">
+          <div class="add-photo" @click="setImageJobs()">
             <img src="../assets/cloud-upload.svg" alt="Adicionar fotos" />
             <div class="add-upload">
               <span>Adicionar foto</span>
@@ -474,6 +474,21 @@ export default {
   .images-profile .add-photo:hover {
     background: #e5e5e5;
     width: 100%;
+  }
+  .tab-active {
+    font-weight: 500;
+    padding: 10px 0;
+    font-size: 0.78rem;
+
+    color: rgb(7, 6, 6);
+    border-bottom: 1px solid rgb(7, 6, 6);
+    transition: all 0.4s ease-in-out;
+  }
+  .tab-off {
+    padding: 10px 0;
+    font-size: 0.78rem;
+    color: #908f8f;
+    border-bottom: 1px solid #908f8f;
   }
 }
 

@@ -5,6 +5,12 @@ export default {
       method: "GET",
       url: "/modelo/caracteristica/listarmodelo/" + id,
     }),
+  saveUser: (user) =>
+    api({
+      method: "POST",
+      url: "/user/criar/modelo",
+      data: user,
+    }),
   changeUser: (user) =>
     api({
       method: "PUT",

@@ -464,7 +464,12 @@ export default {
       const formData = new FormData();
       formData.append("foto_perfil", this.userImg);
       const response = await Model.handleProfileImg(this.user.id, formData);
-      console.log("a imagem foi alterada", response.data);
+      if (response.data) {
+        this.$vToastify.success({
+          body: "Alterado com sucesso",
+          title: "Tudo certo!",
+        });
+      }
     },
   },
 };

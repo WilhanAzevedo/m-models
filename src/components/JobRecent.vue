@@ -40,12 +40,11 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-right: 20px;
+  cursor: pointer;
 }
 .job-recent .job-title {
   text-align: center;
   font-size: 1rem;
-  width: 90%;
   color: #908f8f;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,8 +57,8 @@ export default {
 }
 
 .job-recent img {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   object-fit: cover;
   border-radius: 0.8rem;
   cursor: pointer;
@@ -67,5 +66,12 @@ export default {
 /* RESPONSIVE MY JOBS ================================ */
 
 @media (max-width: 400px) {
+  .job-recent img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.8rem;
+    cursor: pointer;
+  }
 }
 </style>

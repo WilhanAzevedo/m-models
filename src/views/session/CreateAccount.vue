@@ -19,7 +19,7 @@
         </span>
       </div>
     </div>
-    <div class="section" @click="$router.push({ name: 'RegisterContractor' })">
+    <!-- <div class="section" @click="$router.push({ name: 'RegisterContractor' })">
       <div class="image-card">
         <img src="../../assets/img-contractor.jpg" alt="Contratante" />
       </div>
@@ -32,7 +32,7 @@
           modelos desta plataforma.
         </span>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

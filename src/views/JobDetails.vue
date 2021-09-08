@@ -37,7 +37,6 @@
               :backgroundButton="'primary'"
               :router="setJobModel"
             />
-            <button @click="toast">Click</button>
           </div>
         </div>
       </div>
@@ -69,17 +68,7 @@ export default {
       const splittedDate = newDate.toISOString().slice(0, 10);
       return new Date(splittedDate).toLocaleString();
     },
-    toast() {
-      this.$toast.success("I'm a toast!", {
-        position: "top-center",
-        closeOnClick: true,
-        pauseOnHover: true,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: "button",
-        icon: true,
-      });
-    },
+
     async setJobModel() {
       const user = await JSON.parse(localStorage.getItem("usuario"));
       if (user) {
@@ -90,9 +79,19 @@ export default {
         await jobs
           .setJobModel(data)
           .then((response) => {
-            console.log(response.data);
+            if (response.data) {
+              this.$vToastify.success({
+                body: "Candidatado com sucesso",
+                title: "Tudo certo!",
+              });
+            }
           })
-          .catch(() => {});
+          .catch(() => {
+            this.$vToastify.error({
+              body: "Você ja é um candidato para esse trabalho",
+              title: "Epa!",
+            });
+          });
       }
     },
   },
