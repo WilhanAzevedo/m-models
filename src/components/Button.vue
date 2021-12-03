@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="disabled" :class="backgroundButton" @click="router">
+  <button :class="backgroundButton" @click="router">
     {{ textButton }}
   </button>
 </template>
@@ -10,7 +10,6 @@ export default {
     textButton: String,
     backgroundButton: String,
     router: Function,
-    disabled: Boolean,
   },
 };
 </script>

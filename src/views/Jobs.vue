@@ -88,13 +88,11 @@ export default {
       this.$router.push({ name: "JobDetails", params: { id: id } });
     },
     async getJobs() {
-      const token = localStorage.getItem("token");
-      const response = await jobs.getJobs(token);
+      const response = await jobs.getJobs();
       this.listJobs = response.data;
     },
     async getJobsRecents() {
-      const token = localStorage.getItem("token");
-      const response = await jobs.getJobsRecents(token);
+      const response = await jobs.getJobsRecents();
       this.jobsRecentsList = response.data;
     },
   },
@@ -134,7 +132,7 @@ export default {
 }
 /* RESPONSIVE MY JOBS ================================ */
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .jobs .all-jobs,
   .list-jobs {
     width: 95%;

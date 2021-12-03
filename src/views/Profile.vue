@@ -4,9 +4,7 @@
     <div class="profile">
       <HeaderProfile
         :user="user"
-        :caracteristicas_adcionais="
-          caracteristicas_adcionais ? caracteristicas_adcionais : ''
-        "
+        :caracteristicas_adcionais="features.caracteristicas_adcionais"
       />
       <!-- CARACTERISTICAS ===================== -->
       <Features :features="features" />
@@ -120,7 +118,6 @@
             :textButton="'Salvar'"
             :backgroundButton="'primary'"
             :router="saveUpload"
-            :disabled="disabled"
           />
         </div>
       </div>
@@ -157,8 +154,6 @@ export default {
       img: null,
       albumSelected: { name: "Seção de Jobs", id: 1 },
       notify: null,
-      caracteristicas_adcionais: "",
-      disabled: false,
     };
   },
   methods: {
@@ -176,7 +171,6 @@ export default {
       this.img = null;
     },
     async saveUpload() {
-      this.disabled = true;
       const data = new FormData();
       data.append("url", this.img);
       data.append("id_modelo", this.user.id);
@@ -184,8 +178,6 @@ export default {
       const response = await Model.uploadImageAlbum(data);
       if (response.data) {
         this.getAlbum(this.user.id);
-        this.disabled = false;
-
         this.$vToastify.success({
           body: "Foto adicionada com sucesso",
           title: "Tudo certo!",
@@ -203,25 +195,20 @@ export default {
     },
     async getUser() {
       const user = await JSON.parse(localStorage.getItem("usuario"));
-      const token = await localStorage.getItem("token");
       if (!user) {
         this.$router.replace({ name: "login" });
       }
       if (user) {
-        const response = await Model.getFeaturesModel(user.modelo.id, token);
+        const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
-          console.log(response.data.caracteristicas[0]);
-          this.caracteristicas_adcionais =
-            response.data.caracteristicas[0].caracteristicas_adcionais;
-          this.features = response.data?.caracteristicas[0];
+          this.features = response.data.caracteristicas[0];
         }
         this.user = response.data.modelo[0];
         this.getAlbum(this.user.id);
       }
     },
     async getAlbum(id) {
-      const token = await localStorage.getItem("token");
-      const response = await Jobs.getAlbum(id, token);
+      const response = await Jobs.getAlbum(id);
       this.albuns = response.data;
       console.log(this.albuns);
     },

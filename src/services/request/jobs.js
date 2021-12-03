@@ -1,28 +1,19 @@
 import api from "../config";
 export default {
-  getAlbum: (id, token) =>
+  getAlbum: (id) =>
     api({
       method: "GET",
       url: "/modelo/album/listarmodeloalbuns/" + id,
-      headers: {
-        Authorization: token ? "Bearer " + token : "",
-      },
     }),
-  getJobs: (token) =>
+  getJobs: () =>
     api({
       method: "GET",
       url: "/servicos/listar",
-      headers: {
-        Authorization: token ? "Bearer " + token : "",
-      },
     }),
-  getJobsRecents: (token) =>
+  getJobsRecents: () =>
     api({
       method: "GET",
       url: "/servicos/listar/servicosnovos/",
-      headers: {
-        Authorization: token ? "Bearer " + token : "",
-      },
     }),
   getJob: (id) =>
     api({
