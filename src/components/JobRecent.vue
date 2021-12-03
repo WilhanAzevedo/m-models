@@ -57,18 +57,18 @@ export default {
 }
 
 .job-recent img {
-  width: 180px;
-  height: 180px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 0.8rem;
   cursor: pointer;
 }
 /* RESPONSIVE MY JOBS ================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .job-recent img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 0.8rem;
     cursor: pointer;

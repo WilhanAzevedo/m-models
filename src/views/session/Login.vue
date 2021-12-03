@@ -71,9 +71,17 @@ export default {
         .login(this.user)
         .then((response) => {
           if (response.status === 200) {
-            localStorage.setItem("usuario", JSON.stringify(response.data));
-            localStorage.setItem("token", response.data.token);
-            this.$router.push({ name: "jobs" });
+            if (response.data.modelo) {
+              localStorage.setItem("usuario", JSON.stringify(response.data));
+              localStorage.setItem("token", response.data.token);
+              this.$router.push({ name: "jobs" });
+            }
+            if (response.data.contratante) {
+              this.$vToastify.error({
+                body: "Ainda não é possivel logar como contratante",
+                title: "Vish!",
+              });
+            }
           }
         })
         .catch(() => (this.error = true));

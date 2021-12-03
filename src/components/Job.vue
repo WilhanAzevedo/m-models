@@ -74,7 +74,7 @@ export default {
 }
 /* RESPONSIVE JOBS ================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .job-card {
     max-width: 100%;
     width: 100%;
