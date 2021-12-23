@@ -8,7 +8,7 @@ import VueToastify from "vue-toastify";
 Vue.use(VueToastify);
 Vue.use(VModal);
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 new Vue({
   router,

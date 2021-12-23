@@ -143,7 +143,11 @@ export default {
     Features,
   },
   mounted() {
+    if(this.$store.state.pago){
     this.getUser();
+    }else{
+      this.$router.push({ name: "plans" });
+    }
   },
   data() {
     return {

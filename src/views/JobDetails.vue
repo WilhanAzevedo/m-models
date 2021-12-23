@@ -51,7 +51,11 @@ import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Button },
   mounted() {
-    this.getJob();
+    if(this.$store.state.pago) {
+      this.getJob();
+    } else {
+      this.$router.push({ name: "plans" });
+    }
   },
   data() {
     return {

@@ -71,6 +71,7 @@ export default {
         .login(this.user)
         .then((response) => {
           if (response.status === 200) {
+<<<<<<< HEAD
             if (response.data.modelo) {
               localStorage.setItem("usuario", JSON.stringify(response.data));
               localStorage.setItem("token", response.data.token);
@@ -82,6 +83,18 @@ export default {
                 title: "Vish!",
               });
             }
+=======
+            localStorage.setItem("usuario", JSON.stringify(response.data));
+            localStorage.setItem("token", response.data.token);
+            if(response.data.pago){
+              this.$store.commit("setUserPay", true);
+              this.$router.push({ name: "jobs" });
+            }else{
+              this.$store.commit("setUserPay", false);
+              this.$router.push({ name: "plans" });
+            }
+            
+>>>>>>> rep/master
           }
         })
         .catch(() => (this.error = true));

@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: () => ({
     userRegister: null,
     localization: null,
+    token: null,
+    pago: false,
   }),
   mutations: {
     setUserRegister(state, data) {
@@ -14,6 +16,9 @@ export default new Vuex.Store({
     },
     setUserLocalization(state, data) {
       state.userRegister = data;
+    },
+    setUserPay(state, data) {
+      state.pago = data;
     },
   },
   actions: {},
