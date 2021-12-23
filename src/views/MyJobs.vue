@@ -42,8 +42,9 @@ export default {
     },
     async getJobsUser() {
       const user = await JSON.parse(localStorage.getItem("usuario"));
+      const token = localStorage.getItem("token");
       if (user) {
-        const response = await jobs.getJobUser(user.modelo.id);
+        const response = await jobs.getJobUser(user.modelo.id, token);
         this.myJobsList = response.data[0].servicos;
       }
     },
@@ -52,8 +53,6 @@ export default {
 </script>
 
 <style>
-.jobs {
-}
 .my-jobs .all-jobs {
   width: 75%;
   margin: 0 auto;
