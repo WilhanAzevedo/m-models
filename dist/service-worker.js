@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f1905f8699f2206a9281edac11594d64.js"
+  "/precache-manifest.7d036ba984bce42b9cbfea135c80a92d.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "m-models"});
