@@ -49,10 +49,10 @@ import "hooper/dist/hooper.css";
 export default {
   components: { Menu, JobRecent, Job, Hooper, Slide },
   mounted() {
-    if(this.$store.state.pago){
-    this.getJobs();
-    this.getJobsRecents();
-    }else{
+    if (this.$store.state.pago) {
+      this.getJobs();
+      this.getJobsRecents();
+    } else {
       this.$router.push({ name: "plans" });
     }
   },

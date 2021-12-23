@@ -5,11 +5,10 @@ export default {
       method: "GET",
       url: "/pagamento/plano",
     }),
-  payPlan:(plano) =>
+  payPlan: (plano) =>
     api({
       method: "POST",
       url: "/pagamento/assinatura",
       data: plano,
     }),
-  
 };
