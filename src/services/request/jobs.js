@@ -29,13 +29,10 @@ export default {
       method: "GET",
       url: "/servicos/listarporid/" + id,
     }),
-  getJobUser: (id, token) =>
+  getJobUser: (id) =>
     api({
       method: "GET",
       url: "/user/listarporid/modeloservico/" + id,
-      headers: {
-        Authorization: token ? "Bearer " + token : "",
-      },
     }),
   setJobModel: (data) =>
     api({

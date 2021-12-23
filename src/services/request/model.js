@@ -1,9 +1,12 @@
 import api from "../config";
 export default {
-  getFeaturesModel: (id) =>
+  getFeaturesModel: (id, token) =>
     api({
       method: "GET",
       url: "/modelo/caracteristica/listarmodelo/" + id,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
   saveUser: (user) =>
     api({
