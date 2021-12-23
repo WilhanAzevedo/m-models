@@ -118,6 +118,7 @@
             :textButton="'Salvar'"
             :backgroundButton="'primary'"
             :router="saveUpload"
+            :disabled="disabled"
           />
         </div>
       </div>
@@ -140,9 +141,9 @@ export default {
     Features,
   },
   mounted() {
-    if(this.$store.state.pago){
-    this.getUser();
-    }else{
+    if (this.$store.state.pago) {
+      this.getUser();
+    } else {
       this.$router.push({ name: "plans" });
     }
   },
@@ -158,6 +159,7 @@ export default {
       img: null,
       albumSelected: { name: "Seção de Jobs", id: 1 },
       notify: null,
+      disabled: false,
     };
   },
   methods: {
@@ -175,12 +177,15 @@ export default {
       this.img = null;
     },
     async saveUpload() {
+      this.disabled = true;
+
       const data = new FormData();
       data.append("url", this.img);
       data.append("id_modelo", this.user.id);
       data.append("id_tipoalbum", this.albumSelected.id);
       const response = await Model.uploadImageAlbum(data);
       if (response.data) {
+        this.disabled = false;
         this.getAlbum(this.user.id);
         this.$vToastify.success({
           body: "Foto adicionada com sucesso",
