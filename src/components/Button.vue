@@ -36,4 +36,8 @@ button {
   background: transparent;
   color: black;
 }
+.danger {
+  background: #ff5b00;
+  color: white;
+}
 </style>

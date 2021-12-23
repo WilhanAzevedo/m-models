@@ -36,11 +36,16 @@
           :backgroundButton="'primary'"
           :router="login"
         />
-        <Button
-          :textButton="'Criar conta'"
-          :backgroundButton="'secondary'"
-          :router="createAccount"
-        />
+
+        <div class="py-5">
+          <span class="text-center">Não tem uma conta?</span> <br />
+          <span class="text-center gray-text">Crie uma conta agora</span>
+          <Button
+            :textButton="'Inscreva-se'"
+            :backgroundButton="'danger'"
+            :router="createAccount"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -97,6 +102,9 @@ export default {
 </script>
 
 <style>
+.py-5 {
+  padding: 15px 0;
+}
 .login {
   display: flex;
   align-items: center;
@@ -138,5 +146,8 @@ a {
 .user-no-found span {
   color: #d12b2b;
   font-size: 13px;
+}
+.gray-text {
+  color: #5a5757;
 }
 </style>
