@@ -29,7 +29,11 @@ import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Job },
   mounted() {
-    this.getJobsUser();
+    if(this.$store.state.pago) {
+      this.getJobsUser();
+    } else {
+      this.$router.push({ name: "plans" });
+    }
   },
   data() {
     return {

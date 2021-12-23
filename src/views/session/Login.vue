@@ -73,7 +73,14 @@ export default {
           if (response.status === 200) {
             localStorage.setItem("usuario", JSON.stringify(response.data));
             localStorage.setItem("token", response.data.token);
-            this.$router.push({ name: "jobs" });
+            if(response.data.pago){
+              this.$store.commit("setUserPay", true);
+              this.$router.push({ name: "jobs" });
+            }else{
+              this.$store.commit("setUserPay", false);
+              this.$router.push({ name: "plans" });
+            }
+            
           }
         })
         .catch(() => (this.error = true));

@@ -75,6 +75,11 @@ const routes = [
     name: "MyJobs",
     component: () => import("../views/MyJobs.vue"),
   },
+  {
+    path: "/planos",
+    name: "plans",
+    component: () => import("../views/Plans.vue"),
+  }, 
 ];
 
 const router = new VueRouter({
