@@ -104,7 +104,7 @@ export default {
 }
 
 .menu .header .logo {
-  width: 75px;
+  width: 194px;
 }
 .menu .header .logo img {
   width: 80%;
@@ -186,6 +186,9 @@ export default {
   }
   #menu-responsive img {
     width: 130%;
+  }
+  .menu .header .logo {
+    width: 75px;
   }
 }
 </style>

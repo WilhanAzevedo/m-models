@@ -37,7 +37,7 @@ button {
   color: black;
 }
 .danger {
-  background: #ff5b00;
+  background: #c40233;
   color: white;
 }
 </style>

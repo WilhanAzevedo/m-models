@@ -40,4 +40,9 @@ export default {
       method: "GET",
       url: "/modelo/caracteristica_predefinida/buscarSeparadoPorGrupo",
     }),
+  deletePhotoUser: (id) =>
+    api({
+      method: "DELETE",
+      url: "/user/uploadimage/modelo/deletar/" + id,
+    }),
 };

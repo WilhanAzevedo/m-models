@@ -57,6 +57,9 @@
             v-for="(upload, key) in albuns[0].uploads"
             :key="key"
           >
+            <div class="btn-delete" @click="deletePhoto(upload)">
+              <span>X</span>
+            </div>
             <img :src="upload.url" alt="" />
           </div>
         </div>
@@ -241,11 +244,36 @@ export default {
         this.albumSelected = { name: "Seção de Books", id: 3 };
       }
     },
+    async deletePhoto(img) {
+      const response = await Model.deletePhotoUser(img.id);
+      if (response.data) {
+        this.$vToastify.success({
+          body: "Foto removida com sucesso",
+          title: "Tudo certo!",
+        });
+        this.getAlbum(this.user.id);
+      }
+    },
   },
 };
 </script>
 
 <style>
+.btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c40233;
+  color: white;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 24px;
+  position: relative;
+  top: 40px;
+  left: 20px;
+  cursor: pointer;
+}
 .app-profile {
   background: white;
 
@@ -292,6 +320,7 @@ export default {
 .images-profile .picture-profile img {
   width: 98%;
   height: 307px;
+  background-position: center;
   object-fit: cover;
 }
 

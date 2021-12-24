@@ -117,10 +117,10 @@ export default {
 }
 
 .menu .header .logo {
-  width: 75px;
+  width: 120px;
 }
 .menu .header .logo img {
-  width: 80%;
+  width: 90%;
   cursor: pointer;
 }
 
