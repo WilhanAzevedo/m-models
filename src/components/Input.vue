@@ -33,6 +33,10 @@ export default {
 </script>
 
 <style>
+.input-group img{
+  width: 24px;
+  height: 24px;
+}
 .input-group {
   display: flex;
   align-items: center;

@@ -51,13 +51,13 @@
       <Input
         :type="'email'"
         :placeholder="'E-mail'"
-        :img="'call.svg'"
+        :img="'email.svg'"
         @input="onEmail"
       />
       <Input
         :type="'password'"
         :placeholder="'Senha'"
-        :img="'call.svg'"
+        :img="'icon-lock.svg'"
         @input="onPass"
       />
       <Button

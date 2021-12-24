@@ -2,11 +2,10 @@
   <div class="plans-component">
     <div class="plan-card">
       <div>
-        <span>{{ title }}</span>
+        <span style="font-size:2rem; color:black;">R$ {{ string(valor) }}</span><br>
       </div>
       <div>
-        <span>R$ {{ string(valor) }}</span><br>
-        
+        <span>{{ title }}</span>
       </div>
       <div>
         <button class="primary" @click="pagar(id)">Escolher</button>
@@ -26,7 +25,8 @@ export default {
   },
   methods: {
     string(val) {
-      let string = val.toString();
+     let string = val.toFixed(2).toString();
+      
       string = string.replace(".", ",");
       return string;
     },
@@ -40,7 +40,7 @@ export default {
       });
       plans.payPlan(dados).then(response => {
         if (response.status === 200) {
-           window.location.href = response.data.init_point;     
+           window.location.href = response.data.url;     
         }
       });
     },

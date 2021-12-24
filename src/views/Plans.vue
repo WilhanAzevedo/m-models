@@ -11,7 +11,7 @@
       <div class="content">
         <div class="list" v-for="(plan, index) in plans" :key="index">
           <Plans
-            :title="plan.reason"
+            :title="plan.description"
             :valor="plan.transaction_amount"
             :id="plan.id"
           />
@@ -57,6 +57,8 @@ export default {
 
 .content {
   display: flex;
+  flex-wrap: wrap;
+
 }
 .plans .list-title {
   margin-bottom: 1rem;
@@ -70,7 +72,7 @@ export default {
   color: black;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 1024px) {
   .content {
     display: grid;
   }

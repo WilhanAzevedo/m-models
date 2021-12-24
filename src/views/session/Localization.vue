@@ -84,17 +84,18 @@ export default {
             this.$vToastify.success({
               body: "Agora é fazer o login",
               title: "Cadastrado com sucesso",
+              callback : this.$router.push({ name: "login" })
             });
           })
           .catch((err) => {
             this.$vToastify.error({
-              body: err.response.data.error,
+              body: err.response.data.message,
               title: "Erro",
             });
           });
       }
 
-      // this.$router.push({ name: "login" });
+      
     },
   },
 };

@@ -3,7 +3,7 @@
     <div class="menu">
       <div class="header">
         <div class="nav-bar">
-          <div class="logo">
+          <div class="logo" @click="home()">
             <img src="../assets/logo.jpeg" alt="Logo" />
           </div>
           <div>
@@ -51,6 +51,10 @@ export default {
 
     closeNav() {
       document.getElementById("myNav").style.width = "0%";
+    },
+
+    home() {
+      this.$router.push({ name: "login" });
     },
   },
 };

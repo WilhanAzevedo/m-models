@@ -1,6 +1,7 @@
 <template>
   <div class="input-group-select">
     <select class="input-select" @input="$emit('input', $event.target.value)">
+      <option value="" disabled selected hidden><span>{{ placeholder }}</span></option>
       <option
         v-for="(item, key) in values"
         :value="JSON.stringify(item)"
