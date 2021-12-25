@@ -49,10 +49,10 @@ import "hooper/dist/hooper.css";
 export default {
   components: { Menu, JobRecent, Job, Hooper, Slide },
   mounted() {
-    if(this.$store.state.pago){
-    this.getJobs();
-    this.getJobsRecents();
-    }else{
+    if (this.$store.state.pago) {
+      this.getJobs();
+      this.getJobsRecents();
+    } else {
       this.$router.push({ name: "plans" });
     }
   },
@@ -74,9 +74,14 @@ export default {
             itemsToShow: 2,
             pagination: "fraction",
           },
+          736: {
+            centerMode: false,
+            itemsToShow: 2,
+            pagination: "fraction",
+          },
           800: {
             centerMode: false,
-            itemsToShow: 3,
+            itemsToShow: 2,
             pagination: "fraction",
           },
           1000: {
@@ -104,8 +109,6 @@ export default {
 </script>
 
 <style>
-.jobs {
-}
 .list-jobs,
 .all-jobs {
   width: 75%;
@@ -136,7 +139,7 @@ export default {
 }
 /* RESPONSIVE MY JOBS ================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 736px) {
   .jobs .all-jobs,
   .list-jobs {
     width: 95%;

@@ -58,7 +58,6 @@ export default {
 .content {
   display: flex;
   flex-wrap: wrap;
-
 }
 .plans .list-title {
   margin-bottom: 1rem;
@@ -73,8 +72,13 @@ export default {
 }
 
 @media (max-width: 1024px) {
+  .plans {
+    height: 100%;
+  }
   .content {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
   }
 }
 </style>

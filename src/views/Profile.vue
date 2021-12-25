@@ -82,6 +82,9 @@
             v-for="(upload, key) in albuns[1].uploads"
             :key="key"
           >
+            <div class="btn-delete" @click="deletePhoto(upload)">
+              <span>X</span>
+            </div>
             <img :src="upload.url" alt="" />
           </div>
         </div>
@@ -104,6 +107,9 @@
             v-for="(upload, key) in albuns[2].uploads"
             :key="key"
           >
+            <div class="btn-delete" @click="deletePhoto(upload)">
+              <span>X</span>
+            </div>
             <img :src="upload.url" alt="" />
           </div>
         </div>

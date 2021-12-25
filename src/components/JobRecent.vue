@@ -65,7 +65,7 @@ export default {
 }
 /* RESPONSIVE MY JOBS ================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 736px) {
   .job-recent img {
     width: 150px;
     height: 150px;

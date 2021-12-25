@@ -29,7 +29,7 @@ import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Job },
   mounted() {
-    if(this.$store.state.pago) {
+    if (this.$store.state.pago) {
       this.getJobsUser();
     } else {
       this.$router.push({ name: "plans" });
@@ -79,7 +79,7 @@ export default {
   width: 28%;
 }
 /* RESPONSIVE MY JOBS ====================== */
-@media (max-width: 400px) {
+@media (max-width: 736px) {
   .my-jobs .all-jobs,
   .list-jobs {
     width: 95%;

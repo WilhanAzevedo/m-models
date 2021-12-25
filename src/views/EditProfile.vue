@@ -286,13 +286,8 @@ export default {
     };
   },
   mounted() {
-    if(this.$store.state.pago){
-      this.getUser();
-      this.getFeatures();
-    }{
-      this.$router.push({ name: "plans" });
-    }
-
+    this.getUser();
+    this.getFeatures();
   },
   methods: {
     async getFeatures() {

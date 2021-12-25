@@ -5,7 +5,18 @@
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  mounted() {
+    if (localStorage.getItem("userPay") && localStorage.getItem("token")) {
+      this.$store.commit("setUserPay", true);
+    } else {
+      this.$store.commit("setUserPay", false);
+      this.$router.push({ name: "login" });
+    }
+  },
+};
+</script>
 <style>
 * {
   margin: 0;

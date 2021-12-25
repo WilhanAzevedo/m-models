@@ -78,8 +78,12 @@ export default {
           if (response.status === 200) {
             localStorage.setItem("usuario", JSON.stringify(response.data));
             localStorage.setItem("token", response.data.token);
-            if (response.data.signature.status == "approved" || response.data.modelo.gratuito == 1) {
+            if (
+              response.data.signature.status == "approved" ||
+              response.data.modelo.gratuito == 1
+            ) {
               this.$store.commit("setUserPay", true);
+              localStorage.setItem("userPay", true);
               this.$router.push({ name: "jobs" });
             } else {
               this.$store.commit("setUserPay", false);
@@ -98,7 +102,6 @@ export default {
       this.user.senha = value;
     },
   },
-  
 };
 </script>
 
