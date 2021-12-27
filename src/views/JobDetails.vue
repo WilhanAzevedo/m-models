@@ -31,7 +31,7 @@
           <div class="description">
             <span v-text="job.descricao"></span>
           </div>
-          <div class="button-apply">
+          <div class="button-apply" v-if="!isValid">
             <Button
               :textButton="'Candidatar-se'"
               :backgroundButton="'primary'"
@@ -51,16 +51,19 @@ import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Button },
   mounted() {
-    if(this.$store.state.pago) {
-      this.getJob();
-    } else {
-      this.$router.push({ name: "plans" });
-    }
+    this.getJob();
   },
   data() {
     return {
       job: null,
     };
+  },
+  computed: {
+    isValid() {
+      let valid = false;
+      if (this.$route.params.myJob) valid = true;
+      return valid;
+    },
   },
   methods: {
     async getJob() {

@@ -29,11 +29,7 @@ import jobs from "../services/request/jobs";
 export default {
   components: { Menu, Job },
   mounted() {
-    if (this.$store.state.pago) {
-      this.getJobsUser();
-    } else {
-      this.$router.push({ name: "plans" });
-    }
+    this.getJobsUser();
   },
   data() {
     return {
@@ -42,7 +38,10 @@ export default {
   },
   methods: {
     clickDetails(id) {
-      this.$router.push({ name: "JobDetails", params: { id: id } });
+      this.$router.push({
+        name: "JobDetails",
+        params: { id: id, myJob: true },
+      });
     },
     async getJobsUser() {
       const user = await JSON.parse(localStorage.getItem("usuario"));

@@ -21,19 +21,20 @@ export default {
     },
     placeholder: {
       type: String,
+      default: "",
     },
     type: {
       type: String,
+      default: "",
     },
     value: [String, Number],
-
     disabled: Boolean,
   },
 };
 </script>
 
 <style>
-.input-group img{
+.input-group img {
   width: 24px;
   height: 24px;
 }

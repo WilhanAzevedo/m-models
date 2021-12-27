@@ -4,7 +4,9 @@
     <div class="profile">
       <HeaderProfile
         :user="user"
-        :caracteristicas_adcionais="features.caracteristicas_adcionais"
+        :caracteristicas_adcionais="
+          features && features.caracteristicas_adcionais
+        "
       />
       <!-- CARACTERISTICAS ===================== -->
       <Features :features="features" />
@@ -150,11 +152,7 @@ export default {
     Features,
   },
   mounted() {
-    if (this.$store.state.pago) {
-      this.getUser();
-    } else {
-      this.$router.push({ name: "plans" });
-    }
+    this.getUser();
   },
   data() {
     return {

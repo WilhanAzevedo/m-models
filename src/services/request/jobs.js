@@ -1,4 +1,6 @@
 import api from "../config";
+const token = localStorage.getItem("token");
+
 export default {
   getAlbum: (id) =>
     api({
@@ -30,5 +32,8 @@ export default {
       method: "POST",
       url: "/user/vincular/modeloservico",
       data: data,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
 };

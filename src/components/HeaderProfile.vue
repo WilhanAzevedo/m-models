@@ -15,7 +15,7 @@
         </div>
         <div class="about">
           <span class="about-title">Sobre mim:</span>
-          <div class="about-description">
+          <div class="about-description" v-if="caracteristicas_adcionais">
             <span v-text="caracteristicas_adcionais"> </span>
           </div>
         </div>

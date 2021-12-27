@@ -17,7 +17,11 @@
           <span>Caracteristicas</span>
         </div>
       </div>
-      <div id="infoUser" :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'">
+      <div
+        id="infoUser"
+        :class="tab1 ? 'tabcontent active-tab' : 'tabcontent'"
+        v-if="user"
+      >
         <div class="change-photo">
           <div class="personal-image">
             <label class="label">
@@ -176,7 +180,7 @@
               :type="'select'"
               :placeholder="'Tamanho manequim'"
               :value="feature.manequim"
-              :values="manequimOptions"
+              :values="manequimOptions ? manequimOptions : []"
               @input="onManequim"
             />
           </div>
@@ -279,10 +283,10 @@ export default {
         { nome: "Feminino" },
         { nome: "Prefiro não informar" },
       ],
-      colorHair: null,
-      colorEyes: null,
-      colorSkin: null,
-      manequimOptions: null,
+      colorHair: [],
+      colorEyes: [],
+      colorSkin: [],
+      manequimOptions: [],
     };
   },
   mounted() {
@@ -292,10 +296,12 @@ export default {
   methods: {
     async getFeatures() {
       const response = await Model.getFeaturesForm();
-      this.colorHair = response.data[0].predefinidas;
-      this.colorEyes = response.data[1].predefinidas;
-      this.colorSkin = response.data[2].predefinidas;
-      this.manequimOptions = response.data[3].predefinidas;
+      if (response.data.length > 0) {
+        this.colorHair = response.data[0].predefinidas;
+        this.colorEyes = response.data[1].predefinidas;
+        this.colorSkin = response.data[2].predefinidas;
+        this.manequimOptions = response.data[3].predefinidas;
+      }
     },
     formatDate(date) {
       const newDate = new Date(date);
@@ -310,7 +316,26 @@ export default {
       if (user) {
         const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
-          this.feature = response.data.caracteristicas[0];
+          console.log(response.data);
+          if (response.data.caracteristicas.length > 0) {
+            this.feature = response.data.caracteristicas[0];
+          }
+
+          if (response.data.caracteristicas.length < 1) {
+            this.feature = {
+              cor_cabelo: null,
+              cor_olho: null,
+              cor_pele: null,
+              manequim: null,
+              altura: null,
+              peso: null,
+              quadril: null,
+              busto_torax: null,
+              calcado: null,
+              cintura: null,
+              caracteristicas_adcionais: null,
+            };
+          }
           this.user = response.data.modelo[0];
           this.urlImg = this.user.foto_perfil;
           this.formFeatures.id = response.data.modelo[0].id;
@@ -434,6 +459,7 @@ export default {
         caracteristicas_adcionais: this.feature.caracteristicas_adcionais,
         id: this.user.id,
       };
+      console.log("aqui");
       const response = await Model.changeFeatures(features);
       if (response.data) {
         this.$vToastify.success({

@@ -1,4 +1,6 @@
 import api from "../config";
+const token = localStorage.getItem("token");
+
 export default {
   getFeaturesModel: (id) =>
     api({
@@ -16,24 +18,36 @@ export default {
       method: "PUT",
       url: "/user/update/modelo/dadosPessoais",
       data: user,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
   handleProfileImg: (id, img) =>
     api({
       method: "POST",
       url: "/user/imagemperfil/modelo/" + id,
       data: img,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
   uploadImageAlbum: (data) =>
     api({
       method: "POST",
       url: "/user/uploadimage/modelo",
       data: data,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
   changeFeatures: (features) =>
     api({
       method: "PUT",
       url: "/modelo/caracteristica/atualizar",
       data: features,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
   getFeaturesForm: () =>
     api({
@@ -44,5 +58,8 @@ export default {
     api({
       method: "DELETE",
       url: "/user/uploadimage/modelo/deletar/" + id,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
     }),
 };
