@@ -23,7 +23,7 @@
                   >M Models no Telegram</a
                 >
               </li>
-              <li><router-link :to="{ name: 'login' }">Sair</router-link></li>
+              <li @click="closeSession()">Sair</li>
             </ul>
           </div>
           <div id="menu-responsive" @click="openNav">
@@ -49,7 +49,7 @@
         <a href="https://t.me/joinchat/osN4TrYbmVFlMzkx" target="_blank"
           >M Models no Telegram</a
         >
-        <a href="#"><router-link :to="{ name: 'login' }">Sair</router-link></a>
+        <a href="#" @click="closeSession()">Sair</a>
       </div>
     </div>
   </div>
@@ -64,6 +64,10 @@ export default {
 
     closeNav() {
       document.getElementById("myNav").style.width = "0%";
+    },
+    closeSession() {
+      localStorage.clear();
+      this.$router.push({ name: "login" });
     },
   },
 };

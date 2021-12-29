@@ -279,7 +279,7 @@ export default {
   cursor: pointer;
 }
 .app-profile {
-  background: white;
+  background: #2e2b2b;
 
   overflow-x: hidden;
 }
