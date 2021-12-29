@@ -9,6 +9,7 @@ export default new Vuex.Store({
     localization: null,
     token: null,
     pago: false,
+    jobSelected: null,
   }),
   mutations: {
     setUserRegister(state, data) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setUserPay(state, data) {
       state.pago = data;
+    },
+    setJobSelected(state, data) {
+      state.jobSelected = data;
     },
   },
   actions: {},

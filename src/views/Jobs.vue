@@ -51,6 +51,7 @@ export default {
   mounted() {
     this.getJobs();
     this.getJobsRecents();
+    this.$store.commit("setJobSelected", null);
   },
   data() {
     return {
@@ -90,6 +91,7 @@ export default {
   },
   methods: {
     clickDetails(id) {
+      this.$store.commit("setJobSelected", id);
       this.$router.push({ name: "JobDetails", params: { id: id } });
     },
     async getJobs() {
