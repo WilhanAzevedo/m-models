@@ -2,7 +2,8 @@
   <div class="plans-component">
     <div class="plan-card">
       <div>
-        <span style="font-size:2rem; color:black;">R$ {{ string(valor) }}</span><br>
+        <span style="font-size: 2rem; color: black">R$ {{ string(valor) }}</span
+        ><br />
       </div>
       <div>
         <span>{{ title }}</span>
@@ -10,7 +11,6 @@
       <div>
         <button class="primary" @click="pagar(id)">Escolher</button>
       </div>
-      
     </div>
   </div>
 </template>
@@ -20,27 +20,26 @@ import plans from "../services/request/plans";
 export default {
   props: {
     title: String,
-    valor : Number,
+    valor: Number,
     id: Number,
   },
   methods: {
     string(val) {
-     let string = val.toFixed(2).toString();
-      
+      let string = val.toFixed(2).toString();
       string = string.replace(".", ",");
       return string;
     },
-    pagar(id) {
+    async pagar(id) {
       let dados = {
         plan_id: id,
       };
       this.$vToastify.success({
-          body: "Aguarde o pagamento para continuar",
-          title: "Pagamento",
+        body: "Aguarde o pagamento para continuar",
+        title: "Pagamento",
       });
-      plans.payPlan(dados).then(response => {
+      await plans.payPlan(dados).then((response) => {
         if (response.status === 200) {
-           window.location.assign(response.data.url)     
+          window.open(response.data.url);
         }
       });
     },
@@ -69,14 +68,13 @@ export default {
   -webkit-box-orient: vertical;
   padding: 1.1rem;
   box-shadow: 0px 1px 5px 0px #949494;
-
 }
 
 .plan-card .content {
   padding: 0rem 10rem;
 }
 
-.plan-card{
+.plan-card {
   width: 180px;
   object-fit: cover;
   border-radius: 0.8rem;
@@ -106,7 +104,7 @@ button {
 /* RESPONSIVE MY JOBS ================================ */
 
 @media (max-width: 400px) {
-  .plan-card{
+  .plan-card {
     /* width: 150px; */
     object-fit: cover;
     border-radius: 0.8rem;

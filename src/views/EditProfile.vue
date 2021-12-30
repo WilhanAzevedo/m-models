@@ -388,7 +388,6 @@ export default {
       this.feature.cor_pele = JSON.parse(value);
     },
     onManequim(value) {
-
       this.feature.manequim = JSON.parse(value);
     },
     onHeight(value) {
@@ -463,7 +462,7 @@ export default {
         id: this.user.id,
       };
       console.log("aqui");
-      if(this.create){
+      if (this.create) {
         const response = await Model.createFeatures(features);
         if (response.data) {
           this.$vToastify.success({
@@ -471,7 +470,7 @@ export default {
             title: "Tudo certo!",
           });
         }
-      }else{
+      } else {
         const response = await Model.changeFeatures(features);
         if (response.data) {
           this.$vToastify.success({
@@ -499,7 +498,6 @@ export default {
       this.userImg = file;
     },
     async handleProfileImg() {
-      console.log("imagemmm", this.userImg);
       const formData = new FormData();
       formData.append("foto_perfil", this.userImg);
       const response = await Model.handleProfileImg(this.user.id, formData);
