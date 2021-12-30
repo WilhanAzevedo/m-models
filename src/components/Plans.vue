@@ -18,6 +18,11 @@
 <script>
 import plans from "../services/request/plans";
 export default {
+  data() {
+    return {
+      url: "",
+    };
+  },
   props: {
     title: String,
     valor: Number,
@@ -37,11 +42,15 @@ export default {
         body: "Aguarde o pagamento para continuar",
         title: "Pagamento",
       });
+      //console.log("aqui")
       await plans.payPlan(dados).then((response) => {
         if (response.status === 200) {
-          window.open(response.data.url);
+          this.url = response.data.url;
+          //console.log(this.url);
         }
       });
+      //console.log("aqui");
+      window.open(this.url);
     },
   },
 };
