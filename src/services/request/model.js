@@ -49,6 +49,15 @@ export default {
         Authorization: token ? "Bearer " + token : "",
       },
     }),
+  createFeatures: (features) =>
+    api({
+      method: "POST",
+      url: "/modelo/caracteristica/criar",
+      data: features,
+      headers: {
+        Authorization: token ? "Bearer " + token : "",
+      },
+  }),
   getFeaturesForm: () =>
     api({
       method: "GET",

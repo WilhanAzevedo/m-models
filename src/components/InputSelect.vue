@@ -8,7 +8,7 @@
         v-for="(item, key) in values"
         :value="JSON.stringify(item)"
         :key="key"
-        :selected="value.nome === item.nome ? true : false"
+        :selected="checkSelected(item.nome)"
       >
         {{ item.nome }}
       </option>
@@ -29,6 +29,17 @@ export default {
     },
     value: Object,
     values: Array,
+  },
+  methods: {
+    checkSelected(item) {
+      if(this.value != null) {
+        if(this.value.nome == item) {
+          return true;
+        }
+      }else{
+        return false;
+      }
+    },
   },
 };
 </script>

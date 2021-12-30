@@ -287,6 +287,7 @@ export default {
       colorEyes: [],
       colorSkin: [],
       manequimOptions: [],
+      create: false,
     };
   },
   mounted() {
@@ -316,7 +317,6 @@ export default {
       if (user) {
         const response = await Model.getFeaturesModel(user.modelo.id);
         if (response.status === 200) {
-          console.log(response.data);
           if (response.data.caracteristicas.length > 0) {
             this.feature = response.data.caracteristicas[0];
           }
@@ -335,6 +335,7 @@ export default {
               cintura: null,
               caracteristicas_adcionais: null,
             };
+            this.create = true;
           }
           this.user = response.data.modelo[0];
           this.urlImg = this.user.foto_perfil;
@@ -387,6 +388,7 @@ export default {
       this.feature.cor_pele = JSON.parse(value);
     },
     onManequim(value) {
+
       this.feature.manequim = JSON.parse(value);
     },
     onHeight(value) {
@@ -455,17 +457,28 @@ export default {
         cor_pele: this.feature.cor_pele.id,
         cintura: this.feature.cintura,
         id_modelo: this.user.id,
+        idModelo: this.user.id,
         update_at: null,
         caracteristicas_adcionais: this.feature.caracteristicas_adcionais,
         id: this.user.id,
       };
       console.log("aqui");
-      const response = await Model.changeFeatures(features);
-      if (response.data) {
-        this.$vToastify.success({
-          body: "Alterado com sucesso",
-          title: "Tudo certo!",
-        });
+      if(this.create){
+        const response = await Model.createFeatures(features);
+        if (response.data) {
+          this.$vToastify.success({
+            body: "Cadastrado com sucesso",
+            title: "Tudo certo!",
+          });
+        }
+      }else{
+        const response = await Model.changeFeatures(features);
+        if (response.data) {
+          this.$vToastify.success({
+            body: "Alterado com sucesso",
+            title: "Tudo certo!",
+          });
+        }
       }
     },
     openSection(sectionName) {
