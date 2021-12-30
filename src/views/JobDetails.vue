@@ -1,24 +1,23 @@
 <template>
   <div class="job-details">
     <Menu />
-    <div class="job-header" v-if="job">
+    <div class="job-header">
       <div class="header-details">
         <div class="image">
           <img :src="job.foto_servico" :alt="job.nome_servico" />
         </div>
-
         <div class="details">
           <div class="top">
             <div class="top-details">
               <div class="title">
-                <span v-text="job.nome_servico">Editorial de revista</span>
+                <span v-text="job.nome_servico"></span>
               </div>
               <div class="location">
                 <div><img src="../assets/localization.svg" alt="" /></div>
                 <div class="city">
-                  <span v-text="job.lugar_divulgacao">Brasília</span>
+                  <span v-text="job.lugar_divulgacao"></span>
                 </div>
-                <div v-text="formatDate(job.data_cadastro)"></div>
+                <div v-text="job.data_cadastro"></div>
               </div>
             </div>
             <div class="close-button" @click="$router.go(-1)">
@@ -31,7 +30,7 @@
           <div class="description">
             <span v-text="job.descricao"></span>
           </div>
-          <div class="button-apply" v-if="!isValid">
+          <div class="button-apply">
             <Button
               :textButton="'Candidatar-se'"
               :backgroundButton="'primary'"
@@ -58,22 +57,18 @@ export default {
       job: null,
     };
   },
-  computed: {
-    isValid() {
-      let valid = false;
-      if (this.$route.params.myJob) valid = true;
-      return valid;
-    },
-  },
   methods: {
     async getJob() {
-      const response = await jobs.getJob(this.$route.params.id);
-      this.job = response.data[0];
-    },
-    formatDate(date) {
-      const newDate = new Date(date);
-      const splittedDate = newDate.toISOString().slice(0, 10);
-      return new Date(splittedDate).toLocaleString();
+      if (this.$store.state.jobSelected) {
+        const response = await jobs.getJob(this.$store.state.jobSelected);
+        this.job = response.data[0];
+      } else {
+        const response = await jobs.getJob(this.$route.params.id);
+        this.job = response.data[0];
+      }
+      if (!this.$store.state.jobSelected && !this.$route.params.id) {
+        this.$router.push({ name: "jobs" });
+      }
     },
 
     async setJobModel() {
@@ -194,7 +189,7 @@ export default {
 }
 /* RESPONSIVE JOBS DETAILS================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .job-header {
     width: 95%;
     margin: 0 auto;

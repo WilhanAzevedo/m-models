@@ -26,7 +26,7 @@ export default {
 }
 
 #app {
-  background: #2e2b2b;
+  background: #f0f2f5;
   font-family: "Poppins", sans-serif;
 }
 </style>

@@ -30,6 +30,7 @@ export default {
   components: { Menu, Job },
   mounted() {
     this.getJobsUser();
+    this.$store.commit("setJobSelected", null);
   },
   data() {
     return {
@@ -38,9 +39,10 @@ export default {
   },
   methods: {
     clickDetails(id) {
+      this.$store.commit("setJobSelected", id);
       this.$router.push({
         name: "JobDetails",
-        params: { id: id, myJob: true },
+        params: { id: id },
       });
     },
     async getJobsUser() {
