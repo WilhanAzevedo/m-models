@@ -59,6 +59,7 @@ export default {
   margin-right: 10px;
   margin-top: 10px;
 }
+
 @media (max-width: 468px) {
   .features {
     width: 100%;
