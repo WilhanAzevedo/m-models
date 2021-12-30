@@ -40,7 +40,7 @@ export default {
       });
       plans.payPlan(dados).then(response => {
         if (response.status === 200) {
-           window.open(response.data.url);     
+           window.location.assign(response.data.url)     
         }
       });
     },
